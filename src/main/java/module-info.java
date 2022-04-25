@@ -4,6 +4,8 @@ module proyect.sharemelody {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires java.xml.bind;
+    requires java.sql;
 
     opens proyect.sharemelody to javafx.fxml;
     exports proyect.sharemelody;

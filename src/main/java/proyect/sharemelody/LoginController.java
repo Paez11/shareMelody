@@ -6,14 +6,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import utils.Connect;
+import utils.DatosConexion;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginController {
-
-    public LoginController(){
-
-    }
 
     @FXML
     private Button LogIn;
@@ -26,6 +28,15 @@ public class LoginController {
     @FXML
     private Label wrongLog;
 
+    private Connection con;
+    private PreparedStatement statement;
+    private ResultSet rs;
+
+    public LoginController(){
+        this.con = Connect.getConnect();
+    }
+
+
     public void userLogIn(ActionEvent event) throws IOException{
         checkLogin();
     }
@@ -33,12 +44,29 @@ public class LoginController {
     private void checkLogin() throws IOException{
         App a = new App();
 
-        if(name.getText().toString().equals("") && password.getText().toString().equals("")){
-            a.changeScene("Home.fxml");
-        }else if(name.getText().isEmpty() || password.getText().isEmpty()){
-            wrongLog.setText("Please enter your data");
-        }else {
-            wrongLog.setText("Wrong password or username");
+        String n = name.getText();
+        String p = password.getText();
+
+        String sql = "SELECT name,password FROM usuario WHERE name = ? and password = ?";
+        try {
+
+            statement = con.prepareStatement(sql);
+            statement.setString(1,n);
+            statement.setString(2,p);
+            rs = statement.executeQuery();
+
+            if(rs.next() && name.getText().toString().equals(n) && password.getText().toString().equals(p)){
+                a.changeScene("Home.fxml");
+            }
+            else if(name.getText().isEmpty() || password.getText().isEmpty()){
+                wrongLog.setText("Please enter your data");
+            }
+            else {
+                wrongLog.setText("Wrong password or username");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }
