@@ -41,6 +41,15 @@ public class LoginController {
         checkLogin();
     }
 
+    public void userSignIn(ActionEvent event) throws IOException {
+        checkSignIn();
+    }
+
+    private void checkSignIn() throws IOException {
+        App a = new App();
+        a.changeScene("register.fxml");
+    }
+
     private void checkLogin() throws IOException{
         App a = new App();
 
@@ -70,5 +79,6 @@ public class LoginController {
         }
 
     }
+
 
 }

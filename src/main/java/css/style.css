@@ -37,3 +37,15 @@
 .menu:hover {
     -fx-background-color: lightblue;
 }
+
+.text-field{
+    -fx-border-radius: 20;
+    -fx-border-width: 0 0 0 0;
+}
+
+.button{
+    -fx-border-radius: 5;
+    -fx-background-color: lightblue;
+    -fx-text-fill: white;
+    -fx-background-size: 20pt;
+}
