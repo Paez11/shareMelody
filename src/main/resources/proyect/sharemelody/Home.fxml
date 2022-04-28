@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #22282e;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #22282e;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
    <left>
       <VBox prefHeight="600.0" prefWidth="158.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
@@ -208,7 +208,7 @@
                      <children>
                         <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="42.0" prefWidth="489.0" stylesheets="@../../../java/css/style.css">
                           <menus>
-                            <Menu mnemonicParsing="false" style="color: white;" text="Recent">
+                            <Menu mnemonicParsing="false" text="Recent">
                               <items>
                                 <MenuItem mnemonicParsing="false" text="Close" />
                               </items>
@@ -229,6 +229,9 @@
                                  </items>
                               </Menu>
                           </menus>
+                           <padding>
+                              <Insets top="7.0" />
+                           </padding>
                         </MenuBar>
                      </children>
                   </HBox>

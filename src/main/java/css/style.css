@@ -25,7 +25,7 @@
 }
 
 .menu-bar{
-    -fx-background-color: transparent;
+    -fx-background-color: black;
 }
 
 .menu-bar .label {

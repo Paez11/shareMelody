@@ -6,8 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import utils.Connect;
-import utils.DatosConexion;
+import proyect.sharemelody.utils.Connect;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -31,6 +30,7 @@ public class LoginController {
     private Connection con;
     private PreparedStatement statement;
     private ResultSet rs;
+    App a = new App();
 
     public LoginController(){
         this.con = Connect.getConnect();
@@ -46,12 +46,10 @@ public class LoginController {
     }
 
     private void checkSignIn() throws IOException {
-        App a = new App();
         a.changeScene("register.fxml");
     }
 
     private void checkLogin() throws IOException{
-        App a = new App();
 
         String n = name.getText();
         String p = password.getText();
