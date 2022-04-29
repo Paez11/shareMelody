@@ -5,12 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utils.Connect;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class App extends Application {
 
     private static Stage stg;
+    private Connection con = Connect.getConnect("conexion.xml");
 
     @Override
     public void start(Stage stage) throws IOException {

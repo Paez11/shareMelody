@@ -27,25 +27,20 @@ public class LoginController {
     @FXML
     private Label wrongLog;
 
-    private Connection con;
+    private Connection con = Connect.getConnect("conexion.xml");
     private PreparedStatement statement;
     private ResultSet rs;
     App a = new App();
-
-    public LoginController(){
-        this.con = Connect.getConnect("conexion.xml");
-    }
-
 
     public void userLogIn(ActionEvent event) throws IOException{
         checkLogin();
     }
 
     public void userSignIn(ActionEvent event) throws IOException {
-        checkSignIn();
+        goSignIn();
     }
 
-    private void checkSignIn() throws IOException {
+    private void goSignIn() throws IOException {
         a.changeScene("register.fxml");
     }
 
@@ -53,27 +48,29 @@ public class LoginController {
 
         String n = name.getText();
         String p = password.getText();
+        String e = name.getText();
 
-        String sql = "SELECT name,password FROM usuario WHERE name = ? and password = ?";
+        String sql = "SELECT name,password FROM usuario WHERE (name = ? or email = ?) and password = ?";
         try {
 
             statement = con.prepareStatement(sql);
             statement.setString(1,n);
-            statement.setString(2,p);
+            statement.setString(2,e);
+            statement.setString(3,p);
             rs = statement.executeQuery();
 
-            if(rs.next() && name.getText().toString().equals(n) && password.getText().toString().equals(p)){
+            if(rs.next() && (name.getText().toString().equals(n) || name.getText().equals(e))  && password.getText().toString().equals(p)){
                 a.changeScene("Home.fxml");
             }
             else if(name.getText().isEmpty() || password.getText().isEmpty()){
                 wrongLog.setText("Please enter your data");
             }
             else {
-                wrongLog.setText("Wrong password or username");
+                wrongLog.setText("Wrong password or username/email");
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
 
     }

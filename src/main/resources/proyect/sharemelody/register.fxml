@@ -11,80 +11,103 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.RegisterController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.RegisterController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="31.0" layoutY="140.0" prefHeight="378.0" prefWidth="316.0">
+            <VBox layoutX="2.0" layoutY="111.0" prefHeight="378.0" prefWidth="393.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="400.0">
                      <children>
-                        <TextField promptText="Username" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                        <TextField fx:id="name" onAction="#userSignIn" promptText="Username" styleClass="text-field" stylesheets="@../../../java/css/style.css">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="wrongReg1" prefHeight="21.0" prefWidth="27.0" text="*" textFill="RED">
-                           <font>
-                              <Font size="34.0" />
-                           </font>
+                        <Label fx:id="wrongReg1" prefHeight="50.0" prefWidth="174.0" textFill="RED">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </Label>
                      </children>
                      <VBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="25.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="400.0">
                      <children>
-                        <TextField promptText="email" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                        <TextField fx:id="email" onAction="#userSignIn" promptText="email" styleClass="text-field" stylesheets="@../../../java/css/style.css">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Label fx:id="wrongReg2" prefHeight="21.0" prefWidth="27.0" text="*" textFill="RED">
-                           <font>
-                              <Font size="34.0" />
-                           </font>
+                        <Label fx:id="wrongReg2" prefHeight="50.0" prefWidth="176.0" textFill="RED">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </Label>
                      </children>
                      <VBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="25.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="400.0">
                      <children>
-                        <PasswordField promptText="password" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                        <PasswordField fx:id="password" onAction="#userSignIn" promptText="password" styleClass="text-field" stylesheets="@../../../java/css/style.css">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </PasswordField>
-                        <Label fx:id="wrongReg3" prefHeight="21.0" prefWidth="27.0" text="*" textFill="RED">
-                           <font>
-                              <Font size="34.0" />
-                           </font>
+                        <Label fx:id="wrongReg3" prefHeight="27.0" prefWidth="160.0" textFill="RED">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </Label>
                      </children>
                      <VBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="313.0">
+                     <children>
+                        <PasswordField fx:id="password2" onAction="#userSignIn" promptText="confirm password" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </PasswordField>
+                        <Label fx:id="wrongReg4" prefHeight="50.0" prefWidth="178.0" textFill="RED">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="25.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="55.0" prefWidth="400.0">
                      <children>
-                        <Button fx:id="signIn" mnemonicParsing="false" prefHeight="39.0" prefWidth="74.0" stylesheets="@../../../java/css/style.css" text="Sign in" textOverrun="CENTER_ELLIPSIS">
+                        <Button fx:id="SignIn" mnemonicParsing="false" onAction="#userSignIn" prefHeight="39.0" prefWidth="74.0" stylesheets="@../../../java/css/style.css" text="Sign in" textOverrun="CENTER_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
                      </children>
+                     <VBox.margin>
+                        <Insets right="165.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>
