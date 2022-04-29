@@ -1,4 +1,4 @@
-package proyect.sharemelody.utils;
+package utils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

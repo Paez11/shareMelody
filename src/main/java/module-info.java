@@ -8,6 +8,6 @@ module proyect.sharemelody {
     requires java.sql;
 
     opens proyect.sharemelody to javafx.fxml;
-    opens proyect.sharemelody.utils to java.xml.bind;
+    opens utils to java.xml.bind;
     exports proyect.sharemelody;
 }

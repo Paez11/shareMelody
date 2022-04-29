@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import proyect.sharemelody.utils.Connect;
+import utils.Connect;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -33,7 +33,7 @@ public class LoginController {
     App a = new App();
 
     public LoginController(){
-        this.con = Connect.getConnect();
+        this.con = Connect.getConnect("conexion.xml");
     }
 
 

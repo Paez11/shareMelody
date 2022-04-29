@@ -5,11 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import proyect.sharemelody.utils.Connect;
-import proyect.sharemelody.utils.DatosConexion;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 public class App extends Application {
 
@@ -17,9 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Connection con= Connect.getConnect();
         stg=stage;
-        stage.setResizable(false);
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Share-Melody");

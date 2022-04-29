@@ -1,4 +1,4 @@
-package proyect.sharemelody.utils;
+package utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,18 +11,27 @@ public class Connect {
 	private static Connect _newInstance;
 	private static DatosConexion dc;
 
+	private Connect(){
 
-	private Connect() {
+	}
 
+	private Connect(String url) {
 		dc = new DatosConexion("conexion.xml");
+	}
 
-		try {
-			con = DriverManager.getConnection("jdbc:mysql://"+dc.getServer() + "/" + dc.getDatabase(), dc.getUsername(), dc.getPassword());
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			con = null;
+	public static Connection getConnect(String url) {
+		if (_newInstance == null) {
+			_newInstance = new Connect(url);
 		}
+		if(con == null){
+			try {
+				con = DriverManager.getConnection(dc.getServer() + "/" + dc.getDatabase(), dc.getUsername(), dc.getPassword());
+			} catch (SQLException e) {
+				e.printStackTrace();
+				con = null;
+			}
+		}
+		return con;
 	}
 
 	public static void disconnect() {
@@ -35,11 +44,6 @@ public class Connect {
 		}
 	}
 	
-	public static Connection getConnect() {
-		if (_newInstance == null) {
-			_newInstance = new Connect();
-		}
-		return con;
-	}
+
 
 }
