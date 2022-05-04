@@ -19,7 +19,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         stg=stage;
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), stage.getHeight(), stage.getWidth());
         stage.setTitle("Share-Melody");
         stage.setScene(scene);
         stage.show();

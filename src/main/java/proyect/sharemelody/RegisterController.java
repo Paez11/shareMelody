@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import models.P_User.User;
+import models.P_User.UserDao;
 import utils.Connect;
 import utils.Valid;
 
@@ -48,12 +50,13 @@ public class RegisterController {
 
     private void checkSignIn() throws IOException, SQLException {
 
+        UserDao uDao = new UserDao();
+
         String n = name.getText();
         String e = email.getText();
         String p = password2.getText();
 
-        String sql = "INSERT into usuario (name, email, password)  VALUES (?, ?, ?)";
-
+        User u = new User(n,e,p);
 
         boolean validE = Valid.Email(email, wrongReg2, "invalid email");
         boolean validP = Valid.passwordMatched(password,password2,wrongReg4,"the password doesnt match");
@@ -81,20 +84,10 @@ public class RegisterController {
             wrongReg4.setText("*");
         }
 
-        try{
-            statement = con.prepareStatement(sql);
-            statement.setString(1,n);
-            statement.setString(2,e);
-            statement.setString(3,p);
-            statement.executeUpdate();
 
-
-            if(validE && validP && checkName(n)){
-                a.changeScene("Home.fxml");
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        if(validE && validP && checkName(n)){
+            uDao.insert(u);
+            a.changeScene("Home.fxml");
         }
     }
 

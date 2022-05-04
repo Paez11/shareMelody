@@ -21,7 +21,7 @@
          <children>
             <VBox prefHeight="225.0" prefWidth="158.0" spacing="10.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0" styleClass="selected" stylesheets="@../../../java/css/style.css">
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0" stylesheets="@../../../java/css/style.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -63,14 +63,14 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0" styleClass="selected" stylesheets="@../../../java/css/style.css">
                      <children>
                         <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../images/profile.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="profile" onDragDetected="#goProfile" text="Profile" textFill="#ffffff73">
+                        <Label text="Profile" textFill="#ffffff73">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

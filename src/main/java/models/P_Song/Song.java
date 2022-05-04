@@ -6,20 +6,20 @@ public class Song {
 
     private String id_s;
     private String name;
+    private User user;
     private float duration;
     private Gender gender;
-    private User user;
 
-    public Song(String id_s, String name, float duration, Gender gender, User user) {
+    public Song(String id_s, String name, User user, float duration, Gender gender) {
         this.id_s = id_s;
         this.name = name;
+        this.user = user;
         this.duration = duration;
         this.gender = gender;
-        this.user = user;
     }
 
     public Song(){
-        this("","",0,null,null);
+        this("","",null,0,null);
     }
 
     public String getId_s() {

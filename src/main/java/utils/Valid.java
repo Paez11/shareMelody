@@ -12,7 +12,7 @@ public class Valid {
     public static boolean passwordMatched(PasswordField p1, PasswordField p2){
         boolean result=false;
 
-        if(p1.getText().equals(p2.getText())) {
+        if(p1.getText().equals(p2.getText()) && (!p1.getText().isEmpty()) && !p2.getText().isEmpty()) {
             result = true;
         }
         return result;
@@ -32,7 +32,7 @@ public class Valid {
         boolean result=false;
 
         String pat ="^[\\w-]+(\\.[\\w-]+)@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)(\\.[A-Za-z]{2,})$";
-        if(e.getText().matches(pat)){
+        if(e.getText().matches(pat) && !e.getText().isEmpty()){
             result=true;
         }
         return result;
