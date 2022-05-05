@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.Connect;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -14,11 +15,18 @@ public class App extends Application {
 
     private static Stage stg;
     private Connection con = Connect.getConnect("conexion.xml");
+    //Parent root = null;
+    //File css = new File("style.css");
 
     @Override
     public void start(Stage stage) throws IOException {
         stg=stage;
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
+        /*
+        root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        root.getStylesheets().clear();
+        root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+         */
         Scene scene = new Scene(fxmlLoader.load(), stage.getHeight(), stage.getWidth());
         stage.setTitle("Share-Melody");
         stage.setScene(scene);

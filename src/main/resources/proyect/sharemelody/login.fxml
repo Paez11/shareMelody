@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" style="-fx-background-color: #22282e;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" style="-fx-background-color: #22282e;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.LoginController">
    <center>
       <AnchorPane prefHeight="400.0" prefWidth="332.0">
          <children>
@@ -57,7 +57,7 @@
                   </VBox>
                   <HBox prefHeight="54.0" prefWidth="315.0">
                      <children>
-                        <Button fx:id="logIn" mnemonicParsing="false" onAction="#userLogIn" prefHeight="39.0" prefWidth="74.0" stylesheets="@../../../java/css/style.css" text="log in" textOverrun="CENTER_ELLIPSIS">
+                        <Button fx:id="logIn" mnemonicParsing="false" onAction="#userLogIn" prefHeight="39.0" prefWidth="74.0" stylesheets="@css/style.css" text="log in" textOverrun="CENTER_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -65,7 +65,7 @@
                               <Insets right="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="signIn" mnemonicParsing="false" onAction="#userSignIn" prefHeight="39.0" prefWidth="74.0" stylesheets="@../../../java/css/style.css" text="Sign in" textOverrun="CENTER_ELLIPSIS">
+                        <Button fx:id="signIn" mnemonicParsing="false" onAction="#userSignIn" prefHeight="39.0" prefWidth="74.0" stylesheets="@css/style.css" text="Sign in" textOverrun="CENTER_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>

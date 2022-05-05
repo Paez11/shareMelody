@@ -67,7 +67,7 @@ public class RegisterController {
 
         if(name.getText().isEmpty()){
             wrongReg1.setText("*");
-        }else if(!checkName(n)){
+        }else if(checkName(n)){
             wrongReg1.setText("Name already exist");
         }
 
@@ -85,14 +85,14 @@ public class RegisterController {
         }
 
 
-        if(validE && validP && checkName(n)){
+        if(validE && validP && !checkName(n)){
             uDao.insert(u);
             a.changeScene("Home.fxml");
         }
     }
 
     private  boolean checkName(String n) throws SQLException {
-        boolean result=false;
+        boolean result=true;
         String sql = "SELECT name from usuario WHERE name = ?";
 
         statement2 = con.prepareStatement(sql);
@@ -100,7 +100,7 @@ public class RegisterController {
         rs = statement2.executeQuery();
 
         if(name.getText().equals(n)){
-            result=true;
+            result=false;
         }
 
         return result;
