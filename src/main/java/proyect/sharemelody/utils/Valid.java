@@ -1,11 +1,8 @@
-package utils;
+package proyect.sharemelody.utils;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Valid {
 

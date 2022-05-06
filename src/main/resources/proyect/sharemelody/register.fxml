@@ -5,21 +5,35 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.RegisterController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.RegisterController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="2.0" layoutY="111.0" prefHeight="378.0" prefWidth="393.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <Button fx:id="LogIn" mnemonicParsing="false" onAction="#goLogIn" stylesheets="@css/style.css" text="&lt;----" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets bottom="50.0" right="150.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="97.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <VBox layoutX="2.0" layoutY="111.0" prefHeight="378.0" prefWidth="388.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="400.0">
                      <children>
-                        <TextField fx:id="name" onAction="#userSignIn" promptText="Username" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                        <TextField fx:id="name" onAction="#userSignIn" promptText="Username" styleClass="text-field" stylesheets="@css/style.css">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -39,7 +53,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="400.0">
                      <children>
-                        <TextField fx:id="email" onAction="#userSignIn" promptText="email" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                        <TextField fx:id="email" onAction="#userSignIn" promptText="email" styleClass="text-field" stylesheets="@css/style.css">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -59,7 +73,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="400.0">
                      <children>
-                        <PasswordField fx:id="password" onAction="#userSignIn" promptText="password" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                        <PasswordField fx:id="password" onAction="#userSignIn" promptText="password" styleClass="text-field" stylesheets="@css/style.css">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -79,7 +93,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="313.0">
                      <children>
-                        <PasswordField fx:id="password2" onAction="#userSignIn" promptText="confirm password" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                        <PasswordField fx:id="password2" onAction="#userSignIn" promptText="confirm password" styleClass="text-field" stylesheets="@css/style.css">
                            <font>
                               <Font size="15.0" />
                            </font>

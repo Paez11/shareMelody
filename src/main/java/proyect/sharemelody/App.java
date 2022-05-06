@@ -5,9 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utils.Connect;
+import proyect.sharemelody.utils.Connect;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -15,19 +14,13 @@ public class App extends Application {
 
     private static Stage stg;
     private Connection con = Connect.getConnect("conexion.xml");
-    //Parent root = null;
-    //File css = new File("style.css");
 
     @Override
     public void start(Stage stage) throws IOException {
         stg=stage;
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
-        /*
-        root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        root.getStylesheets().clear();
-        root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-         */
-        Scene scene = new Scene(fxmlLoader.load(), stage.getHeight(), stage.getWidth());
+
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Share-Melody");
         stage.setScene(scene);
         stage.show();
@@ -36,6 +29,9 @@ public class App extends Application {
     public void changeScene(String fxml)throws IOException{
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         stg.getScene().setRoot(pane);
+        stg.resizableProperty();
+        stg.getWidth();
+        stg.getHeight();
     }
 
     public static void main(String[] args) {

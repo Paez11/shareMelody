@@ -6,10 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import models.P_User.User;
-import models.P_User.UserDao;
-import utils.Connect;
-import utils.Valid;
+import proyect.sharemelody.models.P_User.User;
+import proyect.sharemelody.models.P_User.UserDao;
+import proyect.sharemelody.utils.Connect;
+import proyect.sharemelody.utils.Valid;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -21,6 +21,8 @@ public class RegisterController {
 
     @FXML
     private Button SignIn;
+    @FXML
+    private Button LogIn;
     @FXML
     private TextField name;
     @FXML
@@ -40,12 +42,19 @@ public class RegisterController {
 
     private Connection con = Connect.getConnect("conexion.xml");
     private PreparedStatement statement;
-    private PreparedStatement statement2;
     private ResultSet rs;
     App a = new App();
 
     public void userSignIn(ActionEvent event) throws IOException, SQLException {
         checkSignIn();
+    }
+
+    public void goLogIn(ActionEvent event) throws IOException{
+        LogIn();
+    }
+
+    private void LogIn() throws IOException {
+        a.changeScene("login.fxml");
     }
 
     private void checkSignIn() throws IOException, SQLException {
@@ -56,7 +65,7 @@ public class RegisterController {
         String e = email.getText();
         String p = password2.getText();
 
-        User u = new User(n,e,p);
+        User u = new User(n,e,p,"");
 
         boolean validE = Valid.Email(email, wrongReg2, "invalid email");
         boolean validP = Valid.passwordMatched(password,password2,wrongReg4,"the password doesnt match");
@@ -95,9 +104,9 @@ public class RegisterController {
         boolean result=true;
         String sql = "SELECT name from usuario WHERE name = ?";
 
-        statement2 = con.prepareStatement(sql);
-        statement2.setString(1, n);
-        rs = statement2.executeQuery();
+        statement = con.prepareStatement(sql);
+        statement.setString(1, n);
+        rs = statement.executeQuery();
 
         if(name.getText().equals(n)){
             result=false;

@@ -1,10 +1,9 @@
-package models.P_User;
+package proyect.sharemelody.models.P_User;
 
-import interfaces.IDao;
+import proyect.sharemelody.interfaces.IDao;
 import javafx.collections.FXCollections;
-import models.P_Song.Song;
-import models.P_Song.SongDao;
-import utils.Connect;
+import proyect.sharemelody.models.P_Song.Song;
+import proyect.sharemelody.utils.Connect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class UserDao implements IDao<User> {
 
-    public static List<User> users = FXCollections.observableArrayList();
+    public static List<User> users = new ArrayList();
 
     private Connection con;
     private PreparedStatement st;

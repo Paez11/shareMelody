@@ -1,6 +1,6 @@
-package models.P_User;
+package proyect.sharemelody.models.P_User;
 
-import models.P_Song.Song;
+import proyect.sharemelody.models.P_Song.Song;
 
 import java.util.List;
 
@@ -10,31 +10,37 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String photo;
     private List<Song> songs;
 
-    public User(int id_u, String name, String email, String password, List<Song> songs) {
+
+
+    public User(int id_u, String name, String email, String password, String photo) {
         this.id_u = id_u;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.photo = photo;
+    }
+
+    public User(String name, String email, String password, String photo) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.photo = photo;
+    }
+
+    public User(int id_u, String name, String email, String password, String photo, List<Song> songs) {
+        this.id_u = id_u;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.photo = photo;
         this.songs = songs;
     }
 
-    public User(int id_u, String name, String email, String password) {
-        this.id_u = id_u;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
     public User(){
-        this(0,"","","",null);
+        this(0,"","","","",null);
     }
 
     public int getId_u() {
@@ -67,6 +73,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public List<Song> getSongs() {

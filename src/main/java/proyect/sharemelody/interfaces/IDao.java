@@ -1,4 +1,4 @@
-package interfaces;
+package proyect.sharemelody.interfaces;
 
 import java.util.Collection;
 
