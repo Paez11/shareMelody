@@ -99,7 +99,6 @@ public class SongDao implements IDao<Song> {
         try{
             st = con.prepareStatement(update);
             st.setString(6, s.getName());
-            st.executeUpdate();
             st.setString(1,s.getUrl());
             st.setString(2,s.getName());
             st.setString(3,s.getPhoto());

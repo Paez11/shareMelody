@@ -5,21 +5,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" style="-fx-background-color: #22282e;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="450.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.LoginController">
    <center>
       <AnchorPane prefHeight="400.0" prefWidth="332.0">
          <children>
-            <VBox alignment="CENTER_LEFT" layoutX="77.0" prefHeight="500.0" prefWidth="315.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="118.0" fitWidth="123.0" layoutX="172.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/melody.png" />
+               </image>
+            </ImageView>
+            <VBox alignment="CENTER_LEFT" layoutX="77.0" layoutY="119.0" prefHeight="381.0" prefWidth="315.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="119.0">
                <children>
-                  <VBox prefHeight="185.0" prefWidth="315.0">
+                  <VBox prefHeight="254.0" prefWidth="315.0">
                      <children>
-                        <Label fx:id="wrongLog" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="90.0" textAlignment="CENTER" textFill="RED">
+                        <Label fx:id="wrongLog" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="299.0" textAlignment="CENTER" textFill="RED">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -32,7 +39,7 @@
                               <Insets />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="name" promptText="Username or email" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                        <TextField fx:id="name" promptText="Username or email" stylesheets="@css/style.css">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -45,7 +52,7 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <PasswordField fx:id="password" promptText="password" styleClass="text-field" stylesheets="@../../../java/css/style.css">
+                        <PasswordField fx:id="password" promptText="password" styleClass="text-field">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -55,9 +62,9 @@
                         </PasswordField>
                      </children>
                   </VBox>
-                  <HBox prefHeight="54.0" prefWidth="315.0">
+                  <HBox prefHeight="103.0" prefWidth="315.0">
                      <children>
-                        <Button fx:id="logIn" mnemonicParsing="false" onAction="#userLogIn" prefHeight="39.0" prefWidth="74.0" stylesheets="@css/style.css" text="log in" textOverrun="CENTER_ELLIPSIS">
+                        <Button fx:id="logIn" mnemonicParsing="false" onAction="#userLogIn" prefHeight="39.0" prefWidth="74.0" styleClass="button1" stylesheets="@css/style.css" text="log in" textOverrun="CENTER_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -65,7 +72,7 @@
                               <Insets right="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="signIn" mnemonicParsing="false" onAction="#userSignIn" prefHeight="39.0" prefWidth="74.0" stylesheets="@css/style.css" text="Sign in" textOverrun="CENTER_ELLIPSIS">
+                        <Button fx:id="signIn" mnemonicParsing="false" onAction="#userSignIn" prefHeight="39.0" prefWidth="74.0" styleClass="button1" stylesheets="@css/style.css" text="Sign in" textOverrun="CENTER_ELLIPSIS">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>

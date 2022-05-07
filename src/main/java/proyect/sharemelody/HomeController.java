@@ -61,18 +61,18 @@ public class HomeController /*implements Initializable*/ {
     }
 
     public void goYours() throws IOException {
-        loadyours(yours.);
+        loadyours();
     }
-    private void loadyours (ActionEvent event) throws IOException {
-        a.changeScene("yours.fxml");
+    private void loadyours () throws IOException {
+        a.changeScene("");
     }
 
     public void loadLikes (ActionEvent event) throws  IOException{
-        a.changeScene("likes.fxml");
+        a.changeScene("");
     }
 
     public void loadProfile(ActionEvent event) throws IOException {
-        a.changeScene("profile.fxml");
+        a.changeScene("");
     }
 
     public void goLogOut() throws IOException {

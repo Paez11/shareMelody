@@ -1,23 +1,37 @@
+.precolor{
+    -fx-background-color: linear-gradient(to bottom, #2b343f, rgb(0, 0, 0));
+}
+
+.color{
+    -fx-background-color: linear-gradient(to bottom, #212529, rgb(0, 0, 0));
+}
+
+.colorTransparent{
+    -fx-border-color: transparent;
+}
+
 .selected{
-    -fx-border-color: lightblue;
+    -fx-border-color: linear-gradient(to right, #3be9e6, #29b9b612);
     -fx-border-width: 0 0 0 5;
 }
 
 .top-panel{
-    -fx-border-color: lightblue;
+    -fx-border-color: linear-gradient(to right, #3be9e6, #29b9b612);
     -fx-border-width: 3 0 0 0;
 }
 
 .container-bar{
-    -fx-background-color: white;
-    -fx-border-width: 1 0 0 0;
-    -fx-background-radius: 15;
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-radius: 70;
+    -fx-border-color: linear-gradient(to right, #3be9e6, #29b9b612);
 }
 
 .search-bar{
     -fx-border-width: 0 0 0 0;
     -fx-border-color: transparent;
-    -fx-background-color: white;
+    -fx-background-color: transparent;
+    -fx-color-label-visible: white;
 }
 
 .profile-photo{
@@ -36,7 +50,7 @@
 }
 
 .menu:hover {
-    -fx-background-color: lightblue;
+    -fx-background-color: linear-gradient(to right, #3be9e6, #29b9b612);
 }
 
 .text-field{
@@ -44,9 +58,10 @@
     -fx-border-width: 0 0 0 0;
 }
 
-.button{
+.button1{
     -fx-border-radius: 5;
-    -fx-background-color: lightblue;
+    -fx-border-color: #3be9e6;
+    -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-background-size: 20pt;
 }

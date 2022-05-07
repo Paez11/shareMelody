@@ -134,7 +134,6 @@ public class UserDao implements IDao<User> {
         try{
             st = con.prepareStatement(update);
             st.setString(4, u.getName());
-            st.executeUpdate();
             st.setString(1,u.getName());
             st.setString(2,u.getEmail());
             st.setString(3,u.getPassword());
