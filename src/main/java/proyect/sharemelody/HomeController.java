@@ -6,11 +6,14 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import proyect.sharemelody.models.P_Song.Song;
 import proyect.sharemelody.models.P_User.User;
@@ -34,46 +37,43 @@ public class HomeController /*implements Initializable*/ {
     private User user = null;
 
     @FXML
-    private Label profile;
+    private Button home;
+    @FXML
+    private Button yours;
+    @FXML
+    private Button likes;
+    @FXML
+    private Button profile;
+
     @FXML
     private MenuButton more;
     @FXML
     private MenuItem Logout;
+
 
     public void initialize(URL url, ResourceBundle rb){
 
     }
 
 
-    public void showMore() throws FileNotFoundException {
-
-        FileInputStream input = new FileInputStream("@../../images/ic_more.png");
-        Image image = new Image(input);
-        ImageView imageView = new ImageView(image);
-        more.setGraphic(imageView);
+    public void loadHome(ActionEvent event) throws IOException {
+        a.changeScene("Home.fxml");
     }
 
-    /*
-    @FXML
-    private Button button_logout;
-
-
-    public HomeController() throws IOException {
-        stg.getMaxHeight();
-        stg.getMaxWidth();
+    public void goYours() throws IOException {
+        loadyours(yours.);
+    }
+    private void loadyours (ActionEvent event) throws IOException {
+        a.changeScene("yours.fxml");
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        button_logout.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
-            }
-        });
+    public void loadLikes (ActionEvent event) throws  IOException{
+        a.changeScene("likes.fxml");
     }
-    */
+
+    public void loadProfile(ActionEvent event) throws IOException {
+        a.changeScene("profile.fxml");
+    }
 
     public void goLogOut() throws IOException {
         logOut();
@@ -84,7 +84,5 @@ public class HomeController /*implements Initializable*/ {
     }
 
 
-    public void goProfile(ActionEvent event) throws IOException {
-        a.changeScene("profile.fxml");
-    }
+
 }
