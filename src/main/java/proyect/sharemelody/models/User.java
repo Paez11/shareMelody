@@ -1,6 +1,4 @@
-package proyect.sharemelody.models.P_User;
-
-import proyect.sharemelody.models.P_Song.Song;
+package proyect.sharemelody.models;
 
 import java.util.List;
 

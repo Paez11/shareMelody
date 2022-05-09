@@ -2,7 +2,7 @@ package proyect.sharemelody;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import proyect.sharemelody.models.P_Song.Song;
+import proyect.sharemelody.models.Song;
 
 public class SongController {
 

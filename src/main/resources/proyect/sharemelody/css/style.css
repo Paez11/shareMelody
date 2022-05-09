@@ -13,6 +13,7 @@
 .selected{
     -fx-border-color: linear-gradient(to right, #3be9e6, #29b9b612);
     -fx-border-width: 0 0 0 5;
+    -fx-text-fill: white;
 }
 
 .top-panel{
@@ -32,6 +33,7 @@
     -fx-border-color: transparent;
     -fx-background-color: transparent;
     -fx-color-label-visible: white;
+    -fx-text-fill: white;
 }
 
 .profile-photo{
@@ -71,6 +73,10 @@
     -fx-text-fill: #ffffff73;
     -fx-font-size: 15 pt;
     -fx-font-weight: bold;
+}
+
+.button2:hover{
+    -fx-background-color: linear-gradient(to right, #3be9e6, #29b9b612);
 }
 
 .menuButton{

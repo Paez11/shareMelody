@@ -1,8 +1,9 @@
-package proyect.sharemelody.models.P_Song;
+package proyect.sharemelody.DAO;
 
 import proyect.sharemelody.interfaces.IDao;
-import javafx.collections.FXCollections;
-import proyect.sharemelody.models.P_User.User;
+import proyect.sharemelody.models.Gender;
+import proyect.sharemelody.models.Song;
+import proyect.sharemelody.models.User;
 import proyect.sharemelody.utils.Connect;
 
 import java.sql.Connection;

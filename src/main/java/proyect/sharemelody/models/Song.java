@@ -1,6 +1,4 @@
-package proyect.sharemelody.models.P_Song;
-
-import proyect.sharemelody.models.P_User.User;
+package proyect.sharemelody.models;
 
 public class Song {
 

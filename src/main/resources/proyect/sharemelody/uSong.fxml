@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="300.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.SongController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="464.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.SongController">
    <children>
       <ImageView fitHeight="80.0" fitWidth="179.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/clipart3099400.png" />
          </image>
       </ImageView>
-      <VBox prefHeight="80.0" prefWidth="164.0">
+      <VBox prefHeight="80.0" prefWidth="173.0">
          <children>
             <Label fx:id="songName" text="Song" textFill="WHITE">
                <font>
@@ -40,21 +40,33 @@
             <Insets left="10.0" />
          </HBox.margin>
       </VBox>
-      <MenuButton fx:id="more" mnemonicParsing="false" prefHeight="80.0" prefWidth="60.0" styleClass="button2" stylesheets="@css/style.css" textAlignment="CENTER">
-         <items>
-            <MenuItem mnemonicParsing="false" text="edit" />
-            <MenuItem mnemonicParsing="false" text="delete" />
-         </items>
-         <graphic>
-            <ImageView fitHeight="25.0" fitWidth="25.0">
-               <image>
-                  <Image url="@../../images/ic_more.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <HBox.margin>
-            <Insets left="10.0" />
-         </HBox.margin>
-      </MenuButton>
+      <HBox prefHeight="80.0" prefWidth="225.0">
+         <children>
+            <Label fx:id="songName1" prefHeight="34.0" prefWidth="142.0" text="Views" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="25.0" />
+               </HBox.margin>
+            </Label>
+            <MenuButton fx:id="more" mnemonicParsing="false" prefHeight="80.0" prefWidth="60.0" styleClass="button2" stylesheets="@css/style.css" textAlignment="CENTER">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="edit" />
+                  <MenuItem mnemonicParsing="false" text="delete" />
+               </items>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0">
+                     <image>
+                        <Image url="@../../images/ic_more.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </MenuButton>
+         </children>
+      </HBox>
    </children>
 </HBox>

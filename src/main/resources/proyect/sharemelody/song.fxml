@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="300.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.SongController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="464.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.SongController">
    <children>
       <ImageView fitHeight="80.0" fitWidth="179.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../images/clipart3099400.png" />
          </image>
       </ImageView>
-      <VBox prefHeight="80.0" prefWidth="164.0">
+      <VBox prefHeight="80.0" prefWidth="188.0">
          <children>
             <Label fx:id="songName" text="Song" textFill="WHITE">
                <font>
@@ -39,6 +39,18 @@
             <Insets left="10.0" />
          </HBox.margin>
       </VBox>
-      <CheckBox alignment="CENTER" contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="81.0" prefWidth="72.0" stylesheets="@css/style.css" />
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="songName1" prefHeight="34.0" prefWidth="170.0" text="Views" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Label>
+            <RadioButton contentDisplay="CENTER" ellipsisString="" mnemonicParsing="false" prefHeight="80.0" prefWidth="17.0" />
+         </children>
+      </HBox>
    </children>
 </HBox>

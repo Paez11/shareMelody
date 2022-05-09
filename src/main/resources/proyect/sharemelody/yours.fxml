@@ -6,32 +6,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.YoursController">
    <left>
       <VBox prefHeight="600.0" prefWidth="158.0" styleClass="colorTransparent" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="219.0" prefWidth="158.0" spacing="10.0">
                <children>
-                  <Button fx:id="home" mnemonicParsing="false" onAction="#handleMenu" prefHeight="48.0" prefWidth="132.0" stylesheets="@css/style.css" text="  Home">
+                  <Button fx:id="home" mnemonicParsing="false" onAction="#loadHome" prefHeight="48.0" prefWidth="132.0" styleClass="button2" stylesheets="@css/style.css" text="  Home">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../images/ic_home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="yours" mnemonicParsing="false" onAction="#loadYours" prefHeight="40.0" prefWidth="133.0" stylesheets="@css/style.css" text="  Yours">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/melody.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -40,16 +46,7 @@
                         <String fx:value="selected" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="yours" mnemonicParsing="false" onAction="#handleMenu" prefHeight="40.0" prefWidth="133.0" styleClass="button2" stylesheets="@css/style.css" text="  Yours">
-                     <graphic>
-                        <ImageView fitHeight="36.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../images/melody.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="likes" mnemonicParsing="false" onAction="#handleMenu" prefHeight="40.0" prefWidth="131.0" styleClass="button2" stylesheets="@css/style.css" text="Likes">
+                  <Button fx:id="likes" mnemonicParsing="false" onAction="#loadLikes" prefHeight="40.0" prefWidth="131.0" styleClass="button2" stylesheets="@css/style.css" text="Likes">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -58,7 +55,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="profile" mnemonicParsing="false" onAction="#handleMenu" prefHeight="42.0" prefWidth="131.0" styleClass="button2" stylesheets="@css/style.css" text="  Profile">
+                  <Button fx:id="profile" mnemonicParsing="false" onAction="#loadProfile" prefHeight="42.0" prefWidth="131.0" styleClass="button2" stylesheets="@css/style.css" text="  Profile">
                      <graphic>
                         <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -253,37 +250,44 @@
       </VBox>
    </top>
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="profilePane" prefHeight="200.0" prefWidth="200.0" />
-            <ScrollPane fx:id="likesPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" />
-            <ScrollPane fx:id="yoursPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css">
-               <content>
-                  <Button fx:id="add" mnemonicParsing="false" onAction="#addSong" prefHeight="61.0" prefWidth="840.0" styleClass="button2" stylesheets="@css/style.css">
+            <Button fx:id="add" mnemonicParsing="false" onAction="#addSong" prefHeight="59.0" prefWidth="842.0" styleClass="button2" stylesheets="@css/style.css">
+               <graphic>
+                  <ImageView fitHeight="51.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/ic_add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TableView prefHeight="414.0" prefWidth="842.0">
+              <columns>
+                <TableColumn prefWidth="204.0" text="name" />
+                <TableColumn prefWidth="119.0" text="user" />
+                  <TableColumn prefWidth="108.0" text="gender" />
+                  <TableColumn prefWidth="67.0" text="duration" />
+                  <TableColumn prefWidth="291.0" text="views" />
+                  <TableColumn prefWidth="52.0">
                      <graphic>
-                        <ImageView fitHeight="51.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../images/ic_add.png" />
-                           </image>
-                        </ImageView>
+                        <MenuButton ellipsisString="" mnemonicParsing="false" prefHeight="15.0" prefWidth="70.0">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="edit" />
+                            <MenuItem mnemonicParsing="false" text="delete" />
+                          </items>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/ic_more.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuButton>
                      </graphic>
-                  </Button>
-               </content></ScrollPane>
-            <TabPane fx:id="homePane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="Most Recent">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-                <Tab text="Most view">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
+                  </TableColumn>
+              </columns>
+            </TableView>
          </children>
-      </StackPane>
+      </VBox>
    </center>
 </BorderPane>
