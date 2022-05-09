@@ -28,6 +28,12 @@ public class User {
         this.photo = photo;
     }
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     public User(int id_u, String name, String email, String password, String photo, List<Song> songs) {
         this.id_u = id_u;
         this.name = name;

@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 
@@ -22,7 +23,7 @@ import java.security.PrivateKey;
 import java.util.ResourceBundle;
 
 
-public class HomeController /*implements Initializable*/ {
+public class HomeController{
 
     App a = new App();
     private static Stage stg;
@@ -30,7 +31,7 @@ public class HomeController /*implements Initializable*/ {
     private ObservableList<Song> songs;
     private Song song = null;
     private ObservableList<User> users;
-    private User user = null;
+    public static UserDao user = null;
 
 
     //Menu
@@ -44,6 +45,7 @@ public class HomeController /*implements Initializable*/ {
     @FXML
     private Button profile;
 
+    //panels
     @FXML
     private TabPane homePane;
     @FXML
@@ -56,6 +58,19 @@ public class HomeController /*implements Initializable*/ {
     //insert
     @FXML
     private Button add;
+
+    //edit panel
+    @FXML
+    private Button edit;
+    @FXML
+    private TextField name;
+    @FXML
+    private TextField email;
+    @FXML
+    private PasswordField p1;
+    @FXML
+    private PasswordField p2;
+
 
     //Options
     @FXML
@@ -77,9 +92,11 @@ public class HomeController /*implements Initializable*/ {
     Node np = profile;
     */
 
+
     /*
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
+        editUser(principalUser);
+        /*
         Node[] nodes = new Node[10];
         for (int i=0; i< nodes.length; i++){
             try{
@@ -89,8 +106,11 @@ public class HomeController /*implements Initializable*/ {
                 e.printStackTrace();
             }
         }
+
+
     }
     */
+
 
     public  void handleMenu(ActionEvent event){
         /*
@@ -117,6 +137,14 @@ public class HomeController /*implements Initializable*/ {
             profilePane.setStyle("-fx-background-color: green");
             profilePane.toFront();
         }
+    }
+
+    public void insertSong(){
+
+    }
+
+    public void editUser(User u){
+
     }
 
 

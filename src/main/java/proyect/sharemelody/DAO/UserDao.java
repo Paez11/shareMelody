@@ -74,13 +74,13 @@ public class UserDao implements IDao<User> {
     public User get(String s) {
         User u = null;
 
+        /*
         for(User aux: users){
             if(aux.getName().matches(s)){
                 u=aux;
             }
         }
-
-        /*
+        */
         try{
             st = con.prepareStatement(select);
             st.setString(1,s);
@@ -93,12 +93,11 @@ public class UserDao implements IDao<User> {
             u.setPassword(rs.getString("password"));
 
             SongDao sDao = new SongDao();
-            u.setSongs((List<Song>) sDao.getAllSongs(u));
+            u.setSongs((List<Song>) sDao.getAll());
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        */
 
         return u;
     }

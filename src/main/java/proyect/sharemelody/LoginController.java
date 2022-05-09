@@ -6,13 +6,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import proyect.sharemelody.models.User;
 import proyect.sharemelody.utils.Connect;
+import proyect.sharemelody.utils.datosServicio;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class LoginController {
 
@@ -49,6 +52,7 @@ public class LoginController {
         String n = name.getText();
         String p = password.getText();
         String e = name.getText();
+        User aux = new User(n,e,p);
 
         String sql = "SELECT name,password FROM usuario WHERE (name = ? or email = ?) and password = ?";
         try {
@@ -60,6 +64,7 @@ public class LoginController {
             rs = statement.executeQuery();
 
             if(rs.next() && (name.getText().toString().equals(n) || name.getText().equals(e))  && password.getText().toString().equals(p)){
+                datosServicio.princpialUser=aux;
                 a.changeScene("Home.fxml");
             }
             else if(name.getText().isEmpty() || password.getText().isEmpty()){
@@ -72,6 +77,8 @@ public class LoginController {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
+
 
     }
 

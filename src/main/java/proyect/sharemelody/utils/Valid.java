@@ -17,6 +17,12 @@ public class Valid {
 
     public static boolean passwordMatched(PasswordField p1, PasswordField p2,Label lb, String error){
         boolean result=true;
+        String pat="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,}$";
+
+        if(!p1.getText().matches(pat)){
+            result=false;
+            lb.setText(error="Invalid password");
+        }
 
         if(!passwordMatched(p1, p2)) {
             result = false;
