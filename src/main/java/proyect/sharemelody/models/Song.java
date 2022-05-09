@@ -22,6 +22,15 @@ public class Song {
         this.gender = gender;
     }
 
+    public Song(String url, String name, String photo, User user, float duration, Gender gender) {
+        this.url = url;
+        this.name = name;
+        this.photo = photo;
+        this.user = user;
+        this.duration = duration;
+        this.gender = gender;
+    }
+
     public Song(String url, String name, String photo, User user, int views, float duration, Gender gender) {
         this.url = url;
         this.name = name;

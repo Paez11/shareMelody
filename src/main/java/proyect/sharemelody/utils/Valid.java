@@ -51,4 +51,16 @@ public class Valid {
 
         return result;
     }
+
+    public static boolean isFloat(TextField input, float f){
+        boolean result=false;
+
+        try{
+            f = Float.parseFloat(input.getText());
+            result=true;
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

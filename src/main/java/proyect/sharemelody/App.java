@@ -1,7 +1,9 @@
 package proyect.sharemelody;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -51,6 +53,11 @@ public class App extends Application {
         stg.showAndWait();
     }
 
+    public void cancel(ActionEvent event){
+        Node n = (Node) event.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
+    }
 
     public static void main(String[] args) {
         launch();

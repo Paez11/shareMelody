@@ -10,6 +10,7 @@ import proyect.sharemelody.models.User;
 import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.utils.Connect;
 import proyect.sharemelody.utils.Valid;
+import proyect.sharemelody.utils.datosServicio;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -44,6 +45,7 @@ public class RegisterController {
     private PreparedStatement statement;
     private ResultSet rs;
     App a = new App();
+    UserDao uDao = new UserDao();
 
     public void userSignIn(ActionEvent event) throws IOException, SQLException {
         checkSignIn();
@@ -58,8 +60,6 @@ public class RegisterController {
     }
 
     private void checkSignIn() throws IOException, SQLException {
-
-        UserDao uDao = new UserDao();
 
         String n = name.getText();
         String e = email.getText();
@@ -96,20 +96,24 @@ public class RegisterController {
 
         if(validE && validP && !checkName(n)){
             uDao.insert(u);
+            datosServicio.princpialUser=u;
             a.changeScene("Home.fxml");
         }
     }
 
     private  boolean checkName(String n) throws SQLException {
         boolean result=true;
+        String n1 = "";
         String sql = "SELECT name from usuario WHERE name = ?";
-
-        statement = con.prepareStatement(sql);
-        statement.setString(1, n);
-        rs = statement.executeQuery();
-
-        if(name.getText().equals(n)){
-            result=false;
+        try{
+            statement = con.prepareStatement(sql);
+            statement.setString(1, n1);
+            rs = statement.executeQuery();
+            if(n.equals(n1)){
+                result=false;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
         }
 
         return result;
