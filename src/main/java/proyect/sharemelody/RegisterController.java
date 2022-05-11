@@ -40,11 +40,15 @@ public class RegisterController extends Controller {
     @FXML
     private Label wrongReg4;
 
-    private Connection con = Connect.getConnect("conexion.xml");
-    private PreparedStatement statement;
+    //private Connection con = Connect.getConnect("conexion.xml");
+    //private PreparedStatement statement;
     private ResultSet rs;
     App a = new App();
     UserDao uDao = new UserDao();
+
+    public RegisterController(){
+        super();
+    }
 
     public void userSignIn(ActionEvent event) throws IOException, SQLException {
         checkSignIn();
@@ -68,6 +72,7 @@ public class RegisterController extends Controller {
         System.out.println(p);
 
         User u = new User(n,e,p,"");
+        users.insert(u);
 
         boolean validE = Valid.Email(email, wrongReg2, "invalid email");
         boolean validP = Valid.passwordMatched(password,password2,wrongReg4,"the password doesnt match");
@@ -78,7 +83,7 @@ public class RegisterController extends Controller {
 
         if(name.getText().isEmpty()){
             wrongReg1.setText("*");
-        }else if(checkName(n)){
+        }else if(name.getText().equals(n)){
             wrongReg1.setText("Name already exist");
         }
 
@@ -98,11 +103,12 @@ public class RegisterController extends Controller {
 
         if(validE && validP){
             uDao.insert(u);
-            princpialUser=u;
+            principalUser=u;
             a.changeScene("Home.fxml");
         }
     }
 
+    /*
     private  boolean checkName(String n) throws SQLException {
         boolean result=true;
         String n1 = "";
@@ -120,5 +126,6 @@ public class RegisterController extends Controller {
 
         return result;
     }
+     */
 
 }

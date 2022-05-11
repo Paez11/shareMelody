@@ -96,7 +96,7 @@ public class uploadSongController extends Controller implements Initializable {
         Gender g = (Gender) genderBox.getValue();
         System.out.println(g);
 
-        User u = princpialUser;
+        User u = principalUser;
         Song s = new Song(url,n,photo,u,d,g);
         System.out.println(s);
 

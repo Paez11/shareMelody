@@ -15,16 +15,16 @@ public abstract class Dao {
 
 
     public static Boolean close(){
-        Boolean res = false;
+        Boolean close = false;
         try {
             if(con != null){
                 con.close();
                 con = null;
-                res = true;
+                close = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return res;
+        return close;
     }
 }

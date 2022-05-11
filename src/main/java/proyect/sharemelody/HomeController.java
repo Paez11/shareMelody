@@ -19,7 +19,9 @@ import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.module.FindException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -130,6 +132,7 @@ public class HomeController extends Controller implements Initializable{
         mediaSongs = new ArrayList<File>();
         directory = new File("music");
         files = directory.listFiles();
+
 
         if(files != null){
             for (File f : files){

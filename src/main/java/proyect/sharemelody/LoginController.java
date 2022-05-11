@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.models.User;
 import proyect.sharemelody.utils.Connect;
 
@@ -29,10 +30,14 @@ public class LoginController extends Controller {
     @FXML
     private Label wrongLog;
 
-    private Connection con = Connect.getConnect("conexion.xml");
+    //private Connection con = Connect.getConnect("conexion.xml");
     private PreparedStatement statement;
     private ResultSet rs;
     App a = new App();
+
+    public LoginController(){
+        super();
+    }
 
     public void userLogIn(ActionEvent event) throws IOException{
         checkLogin();
@@ -55,7 +60,19 @@ public class LoginController extends Controller {
         //p= Valid.sha256(p);
 
         User aux = new User(n,e,p);
+        users.get(n);
+        if((name.getText().equals(n) || name.getText().equals(e))  && password.getText().equals(p)){
+            principalUser=aux;
+            a.changeScene("Home.fxml");
+        }
+        else if(name.getText().isEmpty() || password.getText().isEmpty()){
+            wrongLog.setText("Please enter your data");
+        }
+        else {
+            wrongLog.setText("Wrong password or username/email");
+        }
 
+        /*
         String sql = "SELECT name,password FROM usuario WHERE (name = ? or email = ?) and password = ?";
         try {
 
@@ -66,7 +83,7 @@ public class LoginController extends Controller {
             rs = statement.executeQuery();
 
             if(rs.next() && (name.getText().toString().equals(n) || name.getText().equals(e))  && password.getText().toString().equals(p)){
-                princpialUser=aux;
+                principalUser=aux;
                 a.changeScene("Home.fxml");
             }
             else if(name.getText().isEmpty() || password.getText().isEmpty()){
@@ -79,7 +96,7 @@ public class LoginController extends Controller {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        */
 
 
     }

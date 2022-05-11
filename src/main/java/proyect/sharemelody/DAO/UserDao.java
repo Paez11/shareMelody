@@ -17,15 +17,27 @@ public class UserDao extends Dao implements IDao<User> {
 
     public static List<User> users = new ArrayList();
 
+    private static UserDao instance;
+
     private PreparedStatement st;
 
     private static final String insert="INSERT into usuario (name, email, password)  VALUES (?, ?, ?)";
-    private static final String getByName="SELECT id_user,nombre,email,password FROM usuario WHERE name=?";
+    private static final String getByName="SELECT id_user,name,email,password FROM usuario WHERE name=?";
     private static final String getAll= "SELECT id,name,email,password FROM usuario";
-    private static final String getByEmail="SELECT id_user,nombre,email,password FROM usuario WHERE email=?";
-    private static final String update="UPDATE usuario SET name=?,email=?,password=? WHERE nombre=?";
+    private static final String getByEmail="SELECT id_user,name,email,password FROM usuario WHERE email=?";
+    private static final String update="UPDATE usuario SET name=?,email=?,password=? WHERE name=?";
     private static final String delete="DELETE FROM usuario WHERE name=?";
 
+    public UserDao(){
+        super();
+    }
+
+    public static UserDao getInstance(){
+        if( instance == null){
+            instance = new UserDao();
+        }
+        return instance;
+    }
 
     public void loadUsers(){
         try{
@@ -85,12 +97,12 @@ public class UserDao extends Dao implements IDao<User> {
             u = new User();
             rs.next();
             u.setId_u(rs.getInt("id_user"));
-            u.setName(rs.getString("nombre"));
+            u.setName(rs.getString("name"));
             u.setEmail(rs.getString("email"));
             u.setPassword(rs.getString("password"));
 
             SongDao sDao = new SongDao();
-            u.setSongs((List<Song>) sDao.getAll());
+            //u.setSongs((List<Song>) sDao.getAll());
 
         } catch (SQLException e) {
             e.printStackTrace();

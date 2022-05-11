@@ -18,16 +18,27 @@ public class SongDao extends Dao implements IDao<Song> {
 
     public static List<Song> songs = new ArrayList();
 
+    private static SongDao instance;
     private PreparedStatement st;
 
     private static final String insert="INSERT into canciones (id_user, url, name, photo, user, duration, gender)  VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String getName="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones WHERE name=?";
     private static final String getId="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones WHERE id_song=?";
-    private static final String getAll="SELECT id_song,name,artist,duration,gender FROM canciones";
+    private static final String getAll="SELECT id_song,url,name,photo,user,duration,gender FROM canciones";
     private static final String delete="DELETE FROM canciones WHERE name=?";
     private static final String update="UPDATE canciones SET url=?, name=?, photo=?, duration=?, gender=? WHERE name=?";
     private static final String updateViews="UPDATE canciones SET views=views+1";
 
+    public SongDao(){
+        super();
+    }
+
+    public static SongDao getInstance(){
+        if( instance == null){
+            instance = new SongDao();
+        }
+        return instance;
+    }
 
     @Override
     public boolean insert(Song s) {
@@ -78,7 +89,7 @@ public class SongDao extends Dao implements IDao<Song> {
             ResultSet rs = st.executeQuery();
             while (rs.next()){
                 Song s = new Song(rs.getInt("id_song"),rs.getString("url"),rs.getString("name"),
-                        rs.getString("photo"),(User)rs.getObject("user"),rs.getInt("views"),
+                        rs.getString("photo"), (User) rs.getObject("user"),rs.getInt("views"),
                         rs.getFloat("duration"),
                         (Gender) rs.getObject("gender"));
 
