@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
    <left>
       <VBox prefHeight="600.0" prefWidth="158.0" styleClass="colorTransparent" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -76,19 +76,15 @@
             </VBox>
             <VBox prefHeight="206.0" prefWidth="158.0">
                <children>
-                  <HBox prefHeight="178.0" prefWidth="156.0">
-                     <children>
-                        <Button fx:id="add1" mnemonicParsing="false" onAction="#addSong" prefHeight="39.0" prefWidth="157.0" styleClass="button2" stylesheets="@css/style.css" text="Upload">
-                           <graphic>
-                              <ImageView fitHeight="51.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/ic_add.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <Button fx:id="add" ellipsisString="" mnemonicParsing="false" onAction="#addSong" prefHeight="39.0" prefWidth="157.0" styleClass="button2" stylesheets="@css/style.css" text="Upload">
+                     <graphic>
+                        <ImageView fitHeight="51.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/ic_add.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Pane prefHeight="284.0" prefWidth="158.0" />
                </children>
             </VBox>
@@ -262,11 +258,11 @@
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="profilePane" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="profilePane" prefHeight="200.0" prefWidth="200.0" styleClass="color" stylesheets="@css/style.css">
                <children>
-                  <VBox prefHeight="472.0" prefWidth="648.0">
+                  <VBox prefHeight="472.0" prefWidth="648.0" styleClass="colorTransparent" stylesheets="@css/style.css">
                      <children>
-                        <HBox prefHeight="203.0" prefWidth="648.0">
+                        <HBox prefHeight="203.0" prefWidth="648.0" styleClass="colorTransparent" stylesheets="@css/style.css">
                            <children>
                               <ImageView fitHeight="180.0" fitWidth="234.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -283,7 +279,7 @@
                               </ChoiceBox>
                            </children>
                         </HBox>
-                        <HBox prefHeight="66.0" prefWidth="648.0">
+                        <HBox prefHeight="66.0" prefWidth="648.0" styleClass="colorTransparent" stylesheets="@css/style.css">
                            <children>
                               <Label text="User name" textFill="WHITE">
                                  <font>
@@ -300,7 +296,7 @@
                               </TextField>
                            </children>
                         </HBox>
-                        <HBox prefHeight="66.0" prefWidth="648.0">
+                        <HBox prefHeight="66.0" prefWidth="648.0" styleClass="colorTransparent" stylesheets="@css/style.css">
                            <children>
                               <Label text="email" textFill="WHITE">
                                  <font>
@@ -317,7 +313,7 @@
                               </TextField>
                            </children>
                         </HBox>
-                        <HBox prefHeight="66.0" prefWidth="648.0">
+                        <HBox prefHeight="66.0" prefWidth="648.0" styleClass="colorTransparent" stylesheets="@css/style.css">
                            <children>
                               <Label text="password" textFill="WHITE">
                                  <font>
@@ -334,7 +330,7 @@
                               </PasswordField>
                            </children>
                         </HBox>
-                        <HBox prefHeight="66.0" prefWidth="648.0">
+                        <HBox prefHeight="66.0" prefWidth="648.0" styleClass="colorTransparent" stylesheets="@css/style.css">
                            <children>
                               <Label prefHeight="25.0" prefWidth="75.0" text="Confirm password" textFill="WHITE">
                                  <font>
@@ -359,8 +355,14 @@
                      </children>
                   </VBox>
                </children></Pane>
-            <ScrollPane fx:id="likesPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" />
-            <TabPane fx:id="homePane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+            <ScrollPane fx:id="likesPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css">
+               <styleClass>
+                  <String fx:value="scroll-bar" />
+                  <String fx:value="thumb" />
+                  <String fx:value="track" />
+                  <String fx:value="songColor" />
+               </styleClass></ScrollPane>
+            <TabPane fx:id="homePane" prefHeight="200.0" prefWidth="200.0" styleClass="color" stylesheets="@css/style.css" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Most Recent">
                   <content>
@@ -374,10 +376,16 @@
                 </Tab>
               </tabs>
             </TabPane>
-            <ScrollPane fx:id="yoursPane" prefHeight="410.0" prefWidth="842.0" stylesheets="@css/style.css">
+            <ScrollPane fx:id="yoursPane" stylesheets="@css/style.css">
                <content>
-                  <VBox fx:id="pnUsong" prefHeight="200.0" prefWidth="842.0" />
+                  <VBox fx:id="pnUsong" styleClass="color" stylesheets="@css/style.css" />
                </content>
+               <styleClass>
+                  <String fx:value="scroll-bar" />
+                  <String fx:value="track" />
+                  <String fx:value="songColor" />
+                  <String fx:value="thumb" />
+               </styleClass>
             </ScrollPane>
          </children>
       </StackPane>

@@ -83,13 +83,6 @@ public class UserDao extends Dao implements IDao<User> {
     public User get(String s) {
         User u = null;
 
-        /*
-        for(User aux: users){
-            if(aux.getName().matches(s)){
-                u=aux;
-            }
-        }
-        */
         try{
             st = con.prepareStatement(getByName);
             st.setString(1,s);
@@ -147,11 +140,6 @@ public class UserDao extends Dao implements IDao<User> {
     public Collection<User> getAll() {
         List<User> userList= new ArrayList();
 
-        if (users!=null && users.size()>0){
-            for(User u: users){
-                userList.add(u);
-            }
-        }
 
         return userList;
     }

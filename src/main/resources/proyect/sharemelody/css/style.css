@@ -10,6 +10,10 @@
     -fx-border-color: transparent;
 }
 
+.songColor{
+    -fx-background-color: linear-gradient(to bottom, #001e3b, rgb(0, 0, 0));
+}
+
 .selected{
     -fx-border-color: linear-gradient(to right, #3be9e6, #29b9b612);
     -fx-border-width: 0 0 0 5;
@@ -82,4 +86,33 @@
 .menuButton{
     -fx-background-color: transparent;
 
+}
+
+.scroll-pane{
+    -fx-background-color: #02030A;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color: transparent;
+}
+.increment-button, .decrement-button{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb{
+    -fx-background-color: #069995;
+    -fx-background-radius: 5 em;
+}
+
+.scroll-pane > .corner{
+    -fx-background-color: black;
 }

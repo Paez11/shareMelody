@@ -166,11 +166,9 @@ public class HomeController extends Controller implements Initializable{
 
         if (event.getSource() == home){
             //home.pseudoClassStateChanged(PseudoClass.getPseudoClass(select), true);
-            homePane.setStyle("-fx-background-color: blue");
             homePane.toFront();
         }
         if (event.getSource() == yours){
-            yoursPane.setStyle("-fx-background-color: red");
             yoursPane.toFront();
 
             Node[] nodes = new Node[10];
@@ -184,11 +182,9 @@ public class HomeController extends Controller implements Initializable{
             }
         }
         if (event.getSource() == likes){
-            likesPane.setStyle("-fx-background-color: yellow");
             likesPane.toFront();
         }
         if (event.getSource() == profile){
-            profilePane.setStyle("-fx-background-color: green");
             profilePane.toFront();
         }
     }

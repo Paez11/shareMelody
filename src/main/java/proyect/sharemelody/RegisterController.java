@@ -72,7 +72,6 @@ public class RegisterController extends Controller {
         System.out.println(p);
 
         User u = new User(n,e,p,"");
-        users.insert(u);
 
         boolean validE = Valid.Email(email, wrongReg2, "invalid email");
         boolean validP = Valid.passwordMatched(password,password2,wrongReg4,"the password doesnt match");
