@@ -92,13 +92,15 @@ public class uploadSongController implements Initializable {
 
     public void upload(){
         String n = name.getText();
-        Float d = Float.valueOf(duration.getText());
+        Float d = Float.parseFloat(duration.getText());
         String url = urlText.getText();
         String photo = photoText.getText();
         Gender g = (Gender) genderBox.getValue();
+        System.out.println(g);
 
         User u = datosServicio.princpialUser;
         Song s = new Song(url,n,photo,u,d,g);
+        System.out.println(s);
 
         //upload.setOnAction(event -> Valid.isFloat(duration,d));
         sDao.insert(s);

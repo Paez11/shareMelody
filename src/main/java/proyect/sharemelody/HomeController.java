@@ -7,7 +7,9 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -102,9 +104,6 @@ public class HomeController implements Initializable{
     @FXML
     private MenuItem Logout;
 
-    @FXML
-    private VBox pnUsong = null;
-
 
 
     //CSS
@@ -116,21 +115,18 @@ public class HomeController implements Initializable{
     Node np = profile;
     */
 
+    @FXML
+    private VBox pnUsong = null;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        homePane.toFront();
+
+        //editUser(principalUser);
+
+
         /*
-        editUser(principalUser);
-        Node[] nodes = new Node[10];
-        for (int i=0; i< nodes.length; i++){
-            try{
-                nodes[i] = FXMLLoader.load(getClass().getResource("uSong.fxml"));
-                pnUsong.getChildren().add(nodes[i]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
         mediaSongs = new ArrayList<File>();
         directory = new File("music");
         files = directory.listFiles();
@@ -138,6 +134,7 @@ public class HomeController implements Initializable{
         if(files != null){
             for (File f : files){
                 mediaSongs.add(f);
+                System.out.println(f);
             }
         }
 
@@ -172,6 +169,16 @@ public class HomeController implements Initializable{
         if (event.getSource() == yours){
             yoursPane.setStyle("-fx-background-color: red");
             yoursPane.toFront();
+
+            Node[] nodes = new Node[10];
+            for (int i=0; i< nodes.length; i++){
+                try{
+                    nodes[i] = FXMLLoader.load(getClass().getResource("uSong.fxml"));
+                    pnUsong.getChildren().add(nodes[i]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         if (event.getSource() == likes){
             likesPane.setStyle("-fx-background-color: yellow");

@@ -36,16 +36,18 @@ public class SongDao implements IDao<Song> {
     @Override
     public boolean insert(Song s) {
         boolean result=false;
-
+        System.out.println(s);
         try{
             st = con.prepareStatement(insert);
-            st.setInt(1,s.getUser().getId_u());
+            //st.setInt(1,s.getUser().getId_u());
+            st.setInt(1,1);
             st.setString(2,s.getUrl());
             st.setString(3, s.getName());
             st.setString(4,s.getPhoto());
             st.setString(5,s.getUser().getName());
             st.setFloat(6,s.getDuration());
-            st.setObject(7,s.getGender());
+            //st.setObject(7,s.getGender());
+            st.setObject(7,"Pop");
             st.executeUpdate();
             songs.add(s);
             result=true;

@@ -25,7 +25,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stg=stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("Home.fxml"));
 
         scene1 = new Scene(fxmlLoader.load());
         stage.setTitle("Share-Melody");

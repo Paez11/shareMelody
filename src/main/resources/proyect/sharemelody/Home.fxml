@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
    <left>
       <VBox prefHeight="600.0" prefWidth="158.0" styleClass="colorTransparent" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -76,24 +76,17 @@
             </VBox>
             <VBox prefHeight="206.0" prefWidth="158.0">
                <children>
-                  <HBox prefHeight="163.0" prefWidth="158.0">
+                  <HBox prefHeight="178.0" prefWidth="156.0">
                      <children>
-                        <Label text="Lists" textFill="#ffffff74">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="10.0" top="5.0" />
-                           </HBox.margin>
-                        </Label>
-                        <ImageView fitHeight="31.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../images/ic_add.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets left="10.0" top="8.0" />
-                           </HBox.margin>
-                        </ImageView>
+                        <Button fx:id="add1" mnemonicParsing="false" onAction="#addSong" prefHeight="39.0" prefWidth="157.0" styleClass="button2" stylesheets="@css/style.css" text="Upload">
+                           <graphic>
+                              <ImageView fitHeight="51.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/ic_add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </HBox>
                   <Pane prefHeight="284.0" prefWidth="158.0" />
@@ -367,18 +360,6 @@
                   </VBox>
                </children></Pane>
             <ScrollPane fx:id="likesPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" />
-            <ScrollPane fx:id="yoursPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css">
-               <content>
-                  <Button fx:id="add" mnemonicParsing="false" onAction="#addSong" prefHeight="61.0" prefWidth="840.0" styleClass="button2" stylesheets="@css/style.css">
-                     <graphic>
-                        <ImageView fitHeight="51.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../images/ic_add.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </content></ScrollPane>
             <TabPane fx:id="homePane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Most Recent">
@@ -393,6 +374,11 @@
                 </Tab>
               </tabs>
             </TabPane>
+            <ScrollPane fx:id="yoursPane" prefHeight="410.0" prefWidth="842.0" stylesheets="@css/style.css">
+               <content>
+                  <VBox fx:id="pnUsong" prefHeight="200.0" prefWidth="842.0" />
+               </content>
+            </ScrollPane>
          </children>
       </StackPane>
    </center>
