@@ -8,6 +8,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import proyect.sharemelody.models.User;
 import proyect.sharemelody.utils.Connect;
+import proyect.sharemelody.utils.Valid;
 import proyect.sharemelody.utils.datosServicio;
 
 import java.io.IOException;
@@ -52,6 +53,9 @@ public class LoginController {
         String n = name.getText();
         String p = password.getText();
         String e = name.getText();
+
+        //p= Valid.sha256(p);
+
         User aux = new User(n,e,p);
 
         String sql = "SELECT name,password FROM usuario WHERE (name = ? or email = ?) and password = ?";

@@ -1,7 +1,9 @@
 package proyect.sharemelody;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -9,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import proyect.sharemelody.utils.Connect;
 
 import java.io.IOException;
@@ -28,6 +31,15 @@ public class App extends Application {
         stage.setTitle("Share-Melody");
         stage.setScene(scene1);
         stage.show();
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+
     }
 
     public void changeScene(String fxml)throws IOException{

@@ -1,14 +1,13 @@
 package proyect.sharemelody;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -17,13 +16,19 @@ import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.security.PrivateKey;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
-public class HomeController{
+public class HomeController implements Initializable{
 
     App a = new App();
     private static Stage stg;
@@ -63,13 +68,32 @@ public class HomeController{
     @FXML
     private Button edit;
     @FXML
-    private TextField name;
+    private TextField name, email;
     @FXML
-    private TextField email;
+    private PasswordField p1, p2;
+
+
+    //Media
     @FXML
-    private PasswordField p1;
+    private Button playButton, previousButton, nextButton;
     @FXML
-    private PasswordField p2;
+    private Label songProgressN;
+    @FXML
+    private Slider songProgress, volumen;
+
+    private Media media;
+    private MediaPlayer mediaPlayer;
+
+    private File directory;
+    private File[] files;
+
+    private ArrayList<File> mediaSongs;
+
+    private int songNumber;
+
+    private Timer timer;
+    private TimerTask task;
+    private boolean running;
 
 
     //Options
@@ -92,11 +116,10 @@ public class HomeController{
     Node np = profile;
     */
 
-
-    /*
-    public void initialize() {
-        editUser(principalUser);
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         /*
+        editUser(principalUser);
         Node[] nodes = new Node[10];
         for (int i=0; i< nodes.length; i++){
             try{
@@ -108,8 +131,29 @@ public class HomeController{
         }
 
 
+        mediaSongs = new ArrayList<File>();
+        directory = new File("music");
+        files = directory.listFiles();
+
+        if(files != null){
+            for (File f : files){
+                mediaSongs.add(f);
+            }
+        }
+
+        media = new Media(mediaSongs.get(songNumber).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+
+        songProgressN.setText(mediaSongs.get(songNumber).getName());
+
+        volumen.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                mediaPlayer.setVolume(volumen.getValue()*0.01);
+            }
+        });
+        */
     }
-    */
 
 
     public  void handleMenu(ActionEvent event){
@@ -145,6 +189,102 @@ public class HomeController{
 
     public void editUser(User u){
 
+    }
+
+
+    public void playMedia(){
+        beginTimer();
+        mediaPlayer.play();
+    }
+
+    public void pauseMedia(){
+        cancelTimer();
+        mediaPlayer.pause();
+    }
+
+    public void previousMedia(){
+        if(songNumber > 0){
+            songNumber--;
+
+            mediaPlayer.stop();
+
+            if(running){
+                cancelTimer();
+            }
+
+            media = new Media(mediaSongs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            songProgressN.setText(mediaSongs.get(songNumber).getName());
+
+            playMedia();
+        }
+        else {
+            songNumber= mediaSongs.size()-1;
+
+            mediaPlayer.stop();
+
+            if(running){
+                cancelTimer();
+            }
+
+            media = new Media(mediaSongs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            songProgressN.setText(mediaSongs.get(songNumber).getName());
+        }
+    }
+
+    public void nextMedia(){
+        if(songNumber < mediaSongs.size()-1){
+            songNumber++;
+
+            mediaPlayer.stop();
+
+            if(running){
+                cancelTimer();
+            }
+
+            media = new Media(mediaSongs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            songProgressN.setText(mediaSongs.get(songNumber).getName());
+
+            playMedia();
+        }
+        else {
+            songNumber=0;
+
+            mediaPlayer.stop();
+
+            if(running){
+                cancelTimer();
+            }
+
+            media = new Media(mediaSongs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            songProgressN.setText(mediaSongs.get(songNumber).getName());
+        }
+    }
+
+    public void beginTimer(){
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                running = true;
+                double current = mediaPlayer.getCurrentTime().toSeconds();
+                double end = media.getDuration().toSeconds();
+                songProgress.setBlockIncrement(current/end);
+
+                if(current/end ==1){
+                    cancelTimer();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 1000);
+    }
+
+    public void cancelTimer(){
+        running=false;
+        timer.cancel();
     }
 
 

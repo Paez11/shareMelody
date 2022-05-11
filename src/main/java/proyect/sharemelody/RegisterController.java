@@ -65,6 +65,9 @@ public class RegisterController {
         String e = email.getText();
         String p = password2.getText();
 
+        p=Valid.sha256(p);
+        System.out.println(p);
+
         User u = new User(n,e,p,"");
 
         boolean validE = Valid.Email(email, wrongReg2, "invalid email");
@@ -94,7 +97,7 @@ public class RegisterController {
         }
 
 
-        if(validE && validP && !checkName(n)){
+        if(validE && validP){
             uDao.insert(u);
             datosServicio.princpialUser=u;
             a.changeScene("Home.fxml");

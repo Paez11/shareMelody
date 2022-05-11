@@ -21,8 +21,9 @@ public class UserDao implements IDao<User> {
     private PreparedStatement st;
 
     private static final String insert="INSERT into usuario (name, email, password)  VALUES (?, ?, ?)";
-    private static final String select="SELECT id_user,nombre,email,password FROM usuario WHERE name=?";
+    private static final String getByName="SELECT id_user,nombre,email,password FROM usuario WHERE name=?";
     private static final String getAll= "SELECT id,name,email,password FROM usuario";
+    private static final String getByEmail="SELECT id_user,nombre,email,password FROM usuario WHERE email=?";
     private static final String update="UPDATE usuario SET name=?,email=?,password=? WHERE nombre=?";
     private static final String delete="DELETE FROM usuario WHERE name=?";
 
@@ -82,7 +83,7 @@ public class UserDao implements IDao<User> {
         }
         */
         try{
-            st = con.prepareStatement(select);
+            st = con.prepareStatement(getByName);
             st.setString(1,s);
             ResultSet rs = st.executeQuery();
             u = new User();
@@ -105,11 +106,32 @@ public class UserDao implements IDao<User> {
     public User getByEmail(String e){
         User u=null;
 
+        /*
         for(User aux: users){
             if(aux.getEmail().matches(e)){
                 u=aux;
             }
         }
+        */
+        try{
+            st = con.prepareStatement(getByEmail);
+            st.setString(1,e);
+            ResultSet rs = st.executeQuery();
+            u = new User();
+            rs.next();
+            u.setId_u(rs.getInt("id_user"));
+            u.setName(rs.getString("nombre"));
+            u.setEmail(rs.getString("email"));
+            u.setPassword(rs.getString("password"));
+
+            SongDao sDao = new SongDao();
+            u.setSongs((List<Song>) sDao.getAll());
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+
         return u;
     }
 

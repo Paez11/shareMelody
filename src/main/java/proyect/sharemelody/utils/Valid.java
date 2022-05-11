@@ -4,6 +4,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+
 public class Valid {
 
     private static boolean passwordMatched(PasswordField p1, PasswordField p2){
@@ -51,6 +54,32 @@ public class Valid {
 
         return result;
     }
+
+    public static String sha256(String s) {
+        String msg = "";
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(s.getBytes(StandardCharsets.UTF_8));
+            msg = toHexString(hash);
+            System.out.println(toHexString(hash));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return msg;
+    }
+
+    private static String toHexString(byte[] array){
+        StringBuilder sb = new StringBuilder(array.length*2);
+        for (byte b: array){
+            int value = 0xFF & b;
+            String toAppend = Integer.toHexString(value);
+            sb.append(toAppend);
+        }
+        sb.setLength(sb.length()-1);
+
+        return sb.toString();
+    }
+
 
     public static boolean isFloat(TextField input, float f){
         boolean result=false;
