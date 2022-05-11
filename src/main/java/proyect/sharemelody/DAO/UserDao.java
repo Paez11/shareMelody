@@ -13,11 +13,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UserDao implements IDao<User> {
+public class UserDao extends Dao implements IDao<User> {
 
     public static List<User> users = new ArrayList();
 
-    private Connection con;
     private PreparedStatement st;
 
     private static final String insert="INSERT into usuario (name, email, password)  VALUES (?, ?, ?)";
@@ -27,9 +26,6 @@ public class UserDao implements IDao<User> {
     private static final String update="UPDATE usuario SET name=?,email=?,password=? WHERE nombre=?";
     private static final String delete="DELETE FROM usuario WHERE name=?";
 
-    public UserDao(){
-        this.con = Connect.getConnect("conexion.xml");
-    }
 
     public void loadUsers(){
         try{

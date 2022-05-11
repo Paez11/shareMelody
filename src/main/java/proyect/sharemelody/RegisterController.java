@@ -10,7 +10,6 @@ import proyect.sharemelody.models.User;
 import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.utils.Connect;
 import proyect.sharemelody.utils.Valid;
-import proyect.sharemelody.utils.datosServicio;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RegisterController {
+public class RegisterController extends Controller {
 
     @FXML
     private Button SignIn;
@@ -99,7 +98,7 @@ public class RegisterController {
 
         if(validE && validP){
             uDao.insert(u);
-            datosServicio.princpialUser=u;
+            princpialUser=u;
             a.changeScene("Home.fxml");
         }
     }

@@ -38,6 +38,8 @@ public class Connect {
 		if (con != null) {
 			try {
 				con.close();
+				con = null;
+				_newInstance=null;
 			} catch (SQLException e) {
 
 			}

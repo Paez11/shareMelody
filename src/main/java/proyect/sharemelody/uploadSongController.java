@@ -15,8 +15,6 @@ import proyect.sharemelody.DAO.SongDao;
 import proyect.sharemelody.models.Gender;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
-import proyect.sharemelody.utils.Valid;
-import proyect.sharemelody.utils.datosServicio;
 
 import java.io.File;
 import java.net.URL;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class uploadSongController implements Initializable {
+public class uploadSongController extends Controller implements Initializable {
 
     ObservableList<Gender> genders = FXCollections.observableArrayList(Gender.values());
     List<String> ustFile;
@@ -98,7 +96,7 @@ public class uploadSongController implements Initializable {
         Gender g = (Gender) genderBox.getValue();
         System.out.println(g);
 
-        User u = datosServicio.princpialUser;
+        User u = princpialUser;
         Song s = new Song(url,n,photo,u,d,g);
         System.out.println(s);
 

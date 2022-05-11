@@ -30,7 +30,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 
-public class HomeController implements Initializable{
+public class HomeController extends Controller implements Initializable{
 
     App a = new App();
     private static Stage stg;

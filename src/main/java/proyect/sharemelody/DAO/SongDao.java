@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class SongDao implements IDao<Song> {
+public class SongDao extends Dao implements IDao<Song> {
 
     public static List<Song> songs = new ArrayList();
 
-    private Connection con;
     private PreparedStatement st;
 
     private static final String insert="INSERT into canciones (id_user, url, name, photo, user, duration, gender)  VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -29,9 +28,6 @@ public class SongDao implements IDao<Song> {
     private static final String update="UPDATE canciones SET url=?, name=?, photo=?, duration=?, gender=? WHERE name=?";
     private static final String updateViews="UPDATE canciones SET views=views+1";
 
-    public SongDao(){
-        this.con = Connect.getConnect("conexion.xml");
-    }
 
     @Override
     public boolean insert(Song s) {
