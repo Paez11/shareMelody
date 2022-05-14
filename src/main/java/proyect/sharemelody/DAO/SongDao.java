@@ -21,7 +21,7 @@ public class SongDao extends Dao implements IDao<Song> {
     private static SongDao instance;
     private PreparedStatement st;
 
-    private static final String insert="INSERT into canciones (id_user, url, name, photo, user, duration, gender)  VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String insert="INSERT into canciones (url, name, photo, user, duration, gender)  VALUES (?, ?, ?, ?, ?, ?)";
     private static final String getName="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones WHERE name=?";
     private static final String getId="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones WHERE id_song=?";
     private static final String getAll="SELECT id_song,url,name,photo,user,duration,gender FROM canciones";
@@ -46,15 +46,12 @@ public class SongDao extends Dao implements IDao<Song> {
         System.out.println(s);
         try{
             st = con.prepareStatement(insert);
-            //st.setInt(1,s.getUser().getId_u());
-            st.setInt(1,1);
-            st.setString(2,s.getUrl());
-            st.setString(3, s.getName());
-            st.setString(4,s.getPhoto());
-            st.setString(5,s.getUser().getName());
-            st.setFloat(6,s.getDuration());
-            //st.setObject(7,s.getGender());
-            st.setObject(7,"Pop");
+            st.setString(1,s.getUrl());
+            st.setString(2, s.getName());
+            st.setString(3,s.getPhoto());
+            st.setString(4,s.getUser().getName());
+            st.setFloat(5,s.getDuration());
+            st.setObject(6,s.getGender().toString());
             st.executeUpdate();
             songs.add(s);
             result=true;

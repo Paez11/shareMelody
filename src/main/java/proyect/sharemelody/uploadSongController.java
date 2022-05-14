@@ -16,7 +16,7 @@ import proyect.sharemelody.models.Gender;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,23 +68,41 @@ public class uploadSongController extends Controller implements Initializable {
         genderBox.getItems().setAll(genders);
     }
 
-    public void urlFileChooser(ActionEvent event){
+    public void urlFileChooser(ActionEvent event) throws IOException {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("MP3 files",ustFile));
         File f = fc.showOpenDialog(null);
+        File destiny = new File("src\\main\\resources\\music\\"+name.getText()+".mp3");
+        InputStream in = new FileInputStream(f);
+        OutputStream out = new FileOutputStream(destiny);
 
         if(f != null){
             urlText.setText(f.getAbsolutePath());
+            byte[] buf = new byte[1024];
+            int len;
+
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
         }
     }
 
-    public void photoFileChooser(ActionEvent event){
+    public void photoFileChooser(ActionEvent event) throws IOException {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Photo files",pstFile));
         File f = fc.showOpenDialog(null);
+        File destiny = new File("src\\main\\resources\\music\\SongPhoto"+f.getName());
+        InputStream in = new FileInputStream(f);
+        OutputStream out = new FileOutputStream(destiny);
 
         if(f != null){
             photoText.setText(f.getAbsolutePath());
+            byte[] buf = new byte[1024];
+            int len;
+
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
         }
     }
 
