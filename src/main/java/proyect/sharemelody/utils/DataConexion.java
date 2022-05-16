@@ -11,21 +11,21 @@ import java.io.Serializable;
 
 @XmlRootElement(name = "conexion")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DatosConexion implements Serializable {
+public class DataConexion implements Serializable {
 	
 	private String server;
 	private String database;
 	private String username;
 	private String password;
 
-	public DatosConexion() {
+	public DataConexion() {
 		this.server = "";
 		this.database = "";
 		this.username = "";
 		this.password = "";
 	}
 
-	public DatosConexion(String url) {
+	public DataConexion(String url) {
 		load(url);
 	}
 
@@ -62,11 +62,11 @@ public class DatosConexion implements Serializable {
 	}
 
 	public void load(String url){
-		DatosConexion aux;
+		DataConexion aux;
 		try {
-			JAXBContext context = JAXBContext.newInstance(DatosConexion.class);
+			JAXBContext context = JAXBContext.newInstance(DataConexion.class);
 			Unmarshaller um = context.createUnmarshaller();
-			aux = (DatosConexion) um.unmarshal(new File(url));
+			aux = (DataConexion) um.unmarshal(new File(url));
 			this.database = aux.database;
 			this.server = aux.server;
 			this.username = aux.username;

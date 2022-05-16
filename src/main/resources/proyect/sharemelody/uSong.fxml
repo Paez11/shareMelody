@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="55.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../images/clipart3099400.png" />
+            <Image url="@../../images/defaultSong.png" />
          </image>
          <HBox.margin>
             <Insets />

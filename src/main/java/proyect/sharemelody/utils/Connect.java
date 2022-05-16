@@ -9,14 +9,14 @@ public class Connect {
 	private static Connection con;
 	private String file = "conexion.xml";
 	private static Connect _newInstance;
-	private static DatosConexion dc;
+	private static DataConexion dc;
 
 	private Connect(){
 
 	}
 
 	private Connect(String url) {
-		dc = new DatosConexion("conexion.xml");
+		dc = new DataConexion("conexion.xml");
 	}
 
 	public static Connection getConnect(String url) {

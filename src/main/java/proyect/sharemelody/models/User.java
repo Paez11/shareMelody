@@ -102,6 +102,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", photo='" + photo + '\'' +
                 ", songs=" + songs +
                 '}';
     }

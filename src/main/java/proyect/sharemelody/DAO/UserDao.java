@@ -22,10 +22,10 @@ public class UserDao extends Dao implements IDao<User> {
     private PreparedStatement st;
 
     private static final String insert="INSERT into usuario (name, email, password)  VALUES (?, ?, ?)";
-    private static final String getByName="SELECT id_user,name,email,password FROM usuario WHERE name=?";
+    private static final String getByName="SELECT id_user,name,email,password,photo FROM usuario WHERE name=?";
     private static final String getAll= "SELECT id,name,email,password FROM usuario";
     private static final String getByEmail="SELECT id_user,name,email,password FROM usuario WHERE email=?";
-    private static final String update="UPDATE usuario SET name=?,email=?,password=? WHERE name=?";
+    private static final String update="UPDATE usuario SET name=?,email=?,password=?, photo=? WHERE name=?";
     private static final String delete="DELETE FROM usuario WHERE name=?";
 
     public UserDao(){
@@ -37,24 +37,6 @@ public class UserDao extends Dao implements IDao<User> {
             instance = new UserDao();
         }
         return instance;
-    }
-
-    public void loadUsers(){
-        try{
-            st = con.prepareStatement(getAll);
-            ResultSet rs = st.executeQuery();
-            while(rs.next()){
-                User u = new User();
-                u.setId_u(rs.getInt("id_user"));
-                u.setEmail(rs.getString("email"));
-                u.setName(rs.getString("name"));
-                u.setPassword(rs.getString("password"));
-
-                users.add(u);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -81,21 +63,22 @@ public class UserDao extends Dao implements IDao<User> {
 
     @Override
     public User get(String s) {
-        User u = null;
+        User u = new User();
 
         try{
             st = con.prepareStatement(getByName);
             st.setString(1,s);
             ResultSet rs = st.executeQuery();
-            u = new User();
-            rs.next();
-            u.setId_u(rs.getInt("id_user"));
-            u.setName(rs.getString("name"));
-            u.setEmail(rs.getString("email"));
-            u.setPassword(rs.getString("password"));
+            if (rs.next()){
+                u.setId_u(rs.getInt("id_user"));
+                u.setName(rs.getString("name"));
+                u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setPhoto(rs.getString("photo"));
 
-            SongDao sDao = new SongDao();
-            //u.setSongs((List<Song>) sDao.getAll());
+                SongDao sDao = new SongDao();
+                //u.setSongs((List<Song>) sDao.getAll());
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,25 +88,18 @@ public class UserDao extends Dao implements IDao<User> {
     }
 
     public User getByEmail(String e){
-        User u=null;
+        User u=new User();
 
-        /*
-        for(User aux: users){
-            if(aux.getEmail().matches(e)){
-                u=aux;
-            }
-        }
-        */
         try{
             st = con.prepareStatement(getByEmail);
             st.setString(1,e);
             ResultSet rs = st.executeQuery();
-            u = new User();
             rs.next();
             u.setId_u(rs.getInt("id_user"));
             u.setName(rs.getString("nombre"));
             u.setEmail(rs.getString("email"));
             u.setPassword(rs.getString("password"));
+            u.setPhoto(rs.getString("photo"));
 
             SongDao sDao = new SongDao();
             u.setSongs((List<Song>) sDao.getAll());
@@ -139,7 +115,21 @@ public class UserDao extends Dao implements IDao<User> {
     @Override
     public Collection<User> getAll() {
         List<User> userList= new ArrayList();
-
+        try{
+            st = con.prepareStatement(getAll);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                User u = new User();
+                u.setId_u(rs.getInt("id_user"));
+                u.setEmail(rs.getString("email"));
+                u.setName(rs.getString("name"));
+                u.setPassword(rs.getString("password"));
+                u.setPhoto(rs.getString("photo"));
+                userList.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return userList;
     }
@@ -150,10 +140,11 @@ public class UserDao extends Dao implements IDao<User> {
 
         try{
             st = con.prepareStatement(update);
-            st.setString(4, u.getName());
             st.setString(1,u.getName());
             st.setString(2,u.getEmail());
             st.setString(3,u.getPassword());
+            st.setString(4,u.getPhoto());
+            st.setString(5, u.getName());
             st.executeUpdate();
             result=true;
         } catch (SQLException e) {

@@ -63,6 +63,7 @@ public class LoginController extends Controller {
         users.get(n);
         if((name.getText().equals(n) || name.getText().equals(e))  && password.getText().equals(p)){
             principalUser=aux;
+            System.out.println(principalUser);
             a.changeScene("Home.fxml");
         }
         else if(name.getText().isEmpty() || password.getText().isEmpty()){

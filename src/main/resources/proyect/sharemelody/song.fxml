@@ -11,9 +11,9 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="464.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.SongController">
    <children>
-      <ImageView fitHeight="80.0" fitWidth="179.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../images/clipart3099400.png" />
+            <Image url="@../../images/defaultSong.png" />
          </image>
       </ImageView>
       <VBox prefHeight="80.0" prefWidth="188.0">

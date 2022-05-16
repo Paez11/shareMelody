@@ -14,11 +14,6 @@
     -fx-background-color: linear-gradient(to bottom, #001e3b, rgb(0, 0, 0));
 }
 
-.selected{
-    -fx-border-color: linear-gradient(to right, #3be9e6, #29b9b612);
-    -fx-border-width: 0 0 0 5;
-    -fx-text-fill: white;
-}
 
 .top-panel{
     -fx-border-color: linear-gradient(to right, #3be9e6, #29b9b612);
@@ -70,6 +65,11 @@
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-background-size: 20pt;
+    -fx-cursor: hand;
+}
+
+.button1:hover{
+    -fx-background-color: #ffffff3b;
 }
 
 .button2{
@@ -77,6 +77,20 @@
     -fx-text-fill: #ffffff73;
     -fx-font-size: 15 pt;
     -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.button2:focused{
+    -fx-border-color: linear-gradient(to right, #3be9e6, #29b9b612);
+    -fx-border-width: 0 0 0 5;
+    -fx-text-fill: white;
+}
+
+.buttonR{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.buttonR:hover{
+    -fx-background-color: #ffffff3b;
 }
 
 .button2:hover{
@@ -109,10 +123,68 @@
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb{
-    -fx-background-color: #069995;
-    -fx-background-radius: 5 em;
+    --fx-background-radius: 0em;
 }
 
 .scroll-pane > .corner{
     -fx-background-color: black;
+}
+
+.slider1 .track {
+    -fx-background-color: linear-gradient(to right, #2D819D 1%, #969696 1%);
+    -fx-background-insets: 0 0 -1 0, 0, 1;
+    -fx-background-radius: 0.25em, 0.25em, 0.166667em; /* 3 3 2 */
+    -fx-padding: 0.15em; /* 3 */
+    -fx-cursor: hand;
+}
+.slider1 .thumb{
+    -fx-cursor: hand;
+}
+
+
+
+
+.table-view{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.table-view .row-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-background-radius: 7px 7px 0px 0px;
+    -fx-background-insets: 0 11px 0 0;
+    -fx-padding: 0 0 5px 0;
+}
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-padding: 2 0 2 10px;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: red;
+    -fx-cursor: hand;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: #93f9b911;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+
+.table-row-cell:even{
+    -fx-background-color: #1dbbdd11;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
 }

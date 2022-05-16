@@ -1,7 +1,5 @@
 package proyect.sharemelody;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
@@ -11,25 +9,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.module.FindException;
+import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import proyect.sharemelody.utils.Valid;
 
 
 public class HomeController extends Controller implements Initializable{
@@ -37,10 +33,10 @@ public class HomeController extends Controller implements Initializable{
     App a = new App();
     private static Stage stg;
 
-    private ObservableList<Song> songs;
+    private ObservableList<Song> observableSongs;
     private Song song = null;
-    private ObservableList<User> users;
-    public static UserDao user = null;
+    private ObservableList<User> observableUsers;
+    List<String> pstFile;
 
 
     //Menu
@@ -64,6 +60,16 @@ public class HomeController extends Controller implements Initializable{
     @FXML
     private Pane profilePane;
 
+    //tables
+    @FXML
+    private TableView mostRecentTable;
+    @FXML
+    private TableView mostViewTable;
+    @FXML
+    private TableView yoursTable;
+    @FXML
+    private TableView likesTable;
+
     //insert
     @FXML
     private Button add;
@@ -72,9 +78,13 @@ public class HomeController extends Controller implements Initializable{
     @FXML
     private Button edit;
     @FXML
-    private TextField name, email;
+    private TextField name, email, photoText;
     @FXML
     private PasswordField p1, p2;
+    @FXML
+    private ImageView profileImage, buttonImage;
+    @FXML
+    private Label wrongEmail, wrongPassword;
 
 
     //Media
@@ -108,25 +118,16 @@ public class HomeController extends Controller implements Initializable{
 
 
 
-    //CSS
-    /*
-    private static final String select = "selected";
-    Node nh = home;
-    Node ny = yours;
-    Node nl = likes;
-    Node np = profile;
-    */
-
     @FXML
     private VBox pnUsong = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+        principalUser=this.users.get(principalUser.getName());
         homePane.toFront();
-
-        //editUser(principalUser);
-
+        System.out.println(principalUser);
 
         /*
         mediaSongs = new ArrayList<File>();
@@ -157,44 +158,108 @@ public class HomeController extends Controller implements Initializable{
 
 
     public  void handleMenu(ActionEvent event){
-        /*
-        nh.getStyleClass().add(select);
-        ny.getStyleClass().add(select);
-        nl.getStyleClass().add(select);
-        np.getStyleClass().add(select);
-        */
+
 
         if (event.getSource() == home){
-            //home.pseudoClassStateChanged(PseudoClass.getPseudoClass(select), true);
             homePane.toFront();
         }
         if (event.getSource() == yours){
             yoursPane.toFront();
-
-            Node[] nodes = new Node[10];
-            for (int i=0; i< nodes.length; i++){
-                try{
-                    nodes[i] = FXMLLoader.load(getClass().getResource("uSong.fxml"));
-                    pnUsong.getChildren().add(nodes[i]);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         if (event.getSource() == likes){
             likesPane.toFront();
         }
         if (event.getSource() == profile){
             profilePane.toFront();
+            name.setText(principalUser.getName());
+            email.setText(principalUser.getEmail());
+
         }
     }
 
-    public void insertSong(){
+    public void mostRecentSongs(){
+        for (Song s: songs.getAll()){
+            observableSongs.add(s);
+        }
+
+        mostRecentTable.setItems(observableSongs);
+        
 
     }
 
-    public void editUser(User u){
 
+    public void editUser(ActionEvent event){
+
+        boolean validE = Valid.Email(email, wrongEmail, "invalid email");
+        boolean validP = Valid.passwordMatched(p1,p2,wrongPassword,"the password doesnt match");
+
+
+        if (p1.getText().isEmpty()){
+            p1.setText(principalUser.getPassword());
+        }
+        if (p2.getText().isEmpty()){
+            p2.setText(principalUser.getPassword());
+        }
+
+        if(validE){
+            users.update(principalUser);
+            if (users.update(principalUser)==true){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("User edited");
+                alert.setHeaderText("");
+                alert.setContentText("data successful edited");
+
+                alert.showAndWait();
+            }else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("User edited");
+                alert.setHeaderText("");
+                alert.setContentText("Unable to update data");
+
+                alert.showAndWait();
+            }
+        }
+        System.out.println(users.update(principalUser));
+    }
+
+    public void photoFileChooser(ActionEvent event) throws IOException {
+
+        photoText.setDisable(true);
+
+        pstFile = new ArrayList<>();
+        pstFile.add("*.png");
+        pstFile.add("*.jpg");
+        pstFile.add("*.jpeg");
+
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Photo files",pstFile));
+        File f = fc.showOpenDialog(null);
+        File destiny = new File("src\\main\\resources\\images\\Users\\"+f.getName());
+        InputStream in = new FileInputStream(f);
+        OutputStream out = new FileOutputStream(destiny);
+
+        if(f != null){
+            photoText.setText(destiny.getAbsolutePath());
+            byte[] buf = new byte[1024];
+            int len;
+
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+        }else {
+            photoText.setText("src\\main\\resources\\images\\"+principalUser.getPhoto());
+            byte[] buf = new byte[1024];
+            int len;
+
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+        }
+        Image image = new Image(destiny.toURI().toString());
+        profileImage.setImage(image);
+        buttonImage.setImage(image);
+        in.close();
+        out.close();
     }
 
 
