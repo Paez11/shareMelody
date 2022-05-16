@@ -3,6 +3,7 @@ package proyect.sharemelody.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class Connect {
 	
@@ -10,6 +11,7 @@ public class Connect {
 	private String file = "conexion.xml";
 	private static Connect _newInstance;
 	private static DataConexion dc;
+	private static final Logger log = Valid.getLogger();
 
 	private Connect(){
 

@@ -16,6 +16,7 @@ import proyect.sharemelody.DAO.SongDao;
 import proyect.sharemelody.models.Gender;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
+import proyect.sharemelody.utils.FileUtil;
 
 import java.io.*;
 import java.net.URL;
@@ -59,61 +60,25 @@ public class uploadSongController extends Controller implements Initializable {
 
         urlText.setDisable(true);
         photoText.setDisable(true);
+
     }
 
-    public void urlFileChooser(ActionEvent event) throws IOException {
-        urlText.setEditable(false);
-        urlText.setMouseTransparent(true);
-        urlText.setFocusTraversable(false);
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("MP3 files",ustFile));
-        File f = fc.showOpenDialog(null);
-        File destiny = new File("src\\main\\resources\\music\\"+name.getText()+".mp3");
-        InputStream in = new FileInputStream(f);
-        OutputStream out = new FileOutputStream(destiny);
-
-        if(f != null){
-            urlText.setText(destiny.getAbsolutePath());
-            byte[] buf = new byte[1024];
-            int len;
-
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
+    public void urlFileChooser(ActionEvent event){
+        try {
+            FileUtil.urlFileChooser(ustFile,urlText,name);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        in.close();
-        out.close();
     }
 
-    public void photoFileChooser(ActionEvent event) throws IOException {
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Photo files",pstFile));
-        File f = fc.showOpenDialog(null);
-        File destiny = new File("src\\main\\resources\\images\\Songs\\"+f.getName());
-        InputStream in = new FileInputStream(f);
-        OutputStream out = new FileOutputStream(destiny);
-
-        if(f != null){
-            photoText.setText(destiny.getAbsolutePath());
-            byte[] buf = new byte[1024];
-            int len;
-
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-        }else {
-            photoText.setText("src\\main\\resources\\images\\defaultSong.png");
-            byte[] buf = new byte[1024];
-            int len;
-
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
+    public void photoFileChooser(ActionEvent event){
+        try {
+            FileUtil.photoFileChooser(pstFile, photoText);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        in.close();
-        out.close();
     }
+
 
     public void upload(ActionEvent event){
         String n = name.getText();
@@ -121,8 +86,6 @@ public class uploadSongController extends Controller implements Initializable {
         String url = urlText.getText();
         String photo = photoText.getText();
         Gender g = (Gender) genderBox.getValue();
-
-        //upload.setOnAction(event -> Valid.isFloat(duration,d));
 
         if (name.getText().isEmpty()){
             wrong1.setText("*");

@@ -5,9 +5,7 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 
@@ -129,7 +126,7 @@ public class HomeController extends Controller implements Initializable{
         homePane.toFront();
         System.out.println(principalUser);
 
-        /*
+
         mediaSongs = new ArrayList<File>();
         directory = new File("music");
         files = directory.listFiles();
@@ -142,6 +139,7 @@ public class HomeController extends Controller implements Initializable{
             }
         }
 
+        /*
         media = new Media(mediaSongs.get(songNumber).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
 
