@@ -8,6 +8,14 @@ import java.util.List;
 
 public class FileUtil {
 
+    /**
+     * Copia el archivo que se haya seleccionado en el explorador con formato .mp3 y lo copia a la carpeta de music
+     * dentro de recursos para tener la cancion lista para reproducir
+     * @param ustFile lista de string que cogera todas las extensiones que se desee que el explorador muestre
+     * @param urlText TextField en el que aparecera la ruta del archivo escogida
+     * @param name TextFileld el cual el usuario introducira el nombre del archivo
+     * @throws IOException excepcion en caso de que el archivo encontrado sea null
+     */
     public static void urlFileChooser(List ustFile, TextField urlText, TextField name) throws IOException {
         urlText.setEditable(false);
         urlText.setMouseTransparent(true);
@@ -33,6 +41,13 @@ public class FileUtil {
         out.close();
     }
 
+    /**
+     * Copia el archivo que se haya seleccionado en el explorador con formato de imagen y lo copia a la carpeta de
+     * imagenes dentro de recursos para tener la imagen en el directorio
+     * @param pstFile lista de string que cogera todas las extensiones que se desee que el explorador muestre
+     * @param photoText TextField en el que aparecera la ruta del archivo escogida
+     * @throws IOException excepcion en caso de que el archivo encontrado sea null
+     */
     public static void photoFileChooser(List pstFile, TextField photoText) throws IOException {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Photo files",pstFile));

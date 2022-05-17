@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public abstract class Dao {
 
     protected static Connection con;
-    protected static final Logger Log = Valid.getLogger();
+    //protected static final Logger Log = Valid.getLogger();
 
     public Dao() {
         this.con = Connect.getConnect("conexion.xml");

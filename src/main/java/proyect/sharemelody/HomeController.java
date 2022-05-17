@@ -22,6 +22,7 @@ import java.util.*;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import proyect.sharemelody.utils.Log;
 import proyect.sharemelody.utils.Valid;
 
 
@@ -118,6 +119,11 @@ public class HomeController extends Controller implements Initializable{
     @FXML
     private VBox pnUsong = null;
 
+    /**
+     * Metodo que se inica al cargar la vista
+     * @param url la ruta del fxml que pertenece
+     * @param resourceBundle recursos del fxml
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -126,6 +132,9 @@ public class HomeController extends Controller implements Initializable{
         homePane.toFront();
         System.out.println(principalUser);
 
+
+        //Esta parte corresponde al reproductor de archivos .mp3
+        //No reconoce los archivos dentro del directorio por lo cual al ser null lanza una excepcion
 
         mediaSongs = new ArrayList<File>();
         directory = new File("music");
@@ -137,6 +146,8 @@ public class HomeController extends Controller implements Initializable{
                 mediaSongs.add(f);
                 System.out.println(f);
             }
+        }else {
+            Log.info("No se han encontrado archivos .mp3 en el directorio");
         }
 
         /*
@@ -155,6 +166,11 @@ public class HomeController extends Controller implements Initializable{
     }
 
 
+    /**
+     * Cambia de panel dentro del stack panel del Home.fxml segun el boton que se pulse para traerlo al frente
+     * el cual sera el visible por el usuario
+     * @param event ActionEvent necesario para describir lo que pasara con la ventana
+     */
     public  void handleMenu(ActionEvent event){
 
 
@@ -175,6 +191,10 @@ public class HomeController extends Controller implements Initializable{
         }
     }
 
+    /**
+     * Metodo que controla el tableview asignado al panel que consistira en mostrar la tabla con las ultimas canciones
+     * subidas a la base de datos
+     */
     public void mostRecentSongs(){
         for (Song s: songs.getAll()){
             observableSongs.add(s);
@@ -185,7 +205,10 @@ public class HomeController extends Controller implements Initializable{
 
     }
 
-
+    /**
+     * Editara la informacion que el usuario haya manipulado y la actualizara en la base de datos
+     * @param event
+     */
     public void editUser(ActionEvent event){
 
         boolean validE = Valid.Email(email, wrongEmail, "invalid email");
@@ -220,6 +243,12 @@ public class HomeController extends Controller implements Initializable{
         System.out.println(users.update(principalUser));
     }
 
+    /**
+     * Copia el archivo que se haya seleccionado en el explorador con formato de imagen y lo copia a la carpeta de
+     * imagenes dentro de recursos para tener la imagen en el directorio (del perfil del usuario)
+     * @param event
+     * @throws IOException excepcion en caso de que el archivo encontrado sea null
+     */
     public void photoFileChooser(ActionEvent event) throws IOException {
 
         photoText.setDisable(true);
@@ -260,17 +289,27 @@ public class HomeController extends Controller implements Initializable{
         out.close();
     }
 
-
+    /**
+     * Comienza a reproducir el archivo .mp3 seleccionado dentro de la carpeta
+     */
     public void playMedia(){
         beginTimer();
         mediaPlayer.play();
+        Log.info("Archivo .mp3 comenzado");
     }
 
+    /**
+     * Pausa la reproduccion del archivo .mp3 que esta en reproduccion en ese momento
+     */
     public void pauseMedia(){
         cancelTimer();
         mediaPlayer.pause();
+        Log.info("Archivo .mp3 pausado");
     }
 
+    /**
+     * Reproduce el archivo .mp3 previo al que se encuentra en reproduccion dentro del directorio
+     */
     public void previousMedia(){
         if(songNumber > 0){
             songNumber--;
@@ -299,9 +338,13 @@ public class HomeController extends Controller implements Initializable{
             media = new Media(mediaSongs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             songProgressN.setText(mediaSongs.get(songNumber).getName());
+            Log.info("Archivo .mp3 anterior cargado");
         }
     }
 
+    /**
+     * Reproduce el archivo .mp3 siguiente al que se encuentra en reproduccion dentro del directorio
+     */
     public void nextMedia(){
         if(songNumber < mediaSongs.size()-1){
             songNumber++;
@@ -330,9 +373,13 @@ public class HomeController extends Controller implements Initializable{
             media = new Media(mediaSongs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             songProgressN.setText(mediaSongs.get(songNumber).getName());
+            Log.info("Archivo .mp3 siguiente cargado");
         }
     }
 
+    /**
+     * Comienza a transcurrir el tiempo para el archivo .mp3 en reproduccion hasta llegar al maximo de esta
+     */
     public void beginTimer(){
         timer = new Timer();
         task = new TimerTask() {
@@ -351,21 +398,36 @@ public class HomeController extends Controller implements Initializable{
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
+    /**
+     * Pausa el contador de tiempo del archivo .mp3
+     */
     public void cancelTimer(){
         running=false;
         timer.cancel();
     }
 
 
+    /**
+     * Muesta la ventana para subir una cancion a la base de datos
+     * @param event
+     * @throws IOException
+     */
     public void addSong(ActionEvent event)throws IOException{
         a.popUpScene("insertSong.fxml", add);
     }
 
+    /**
+     * Llama al metodo de logOut
+     * @throws IOException excepcion en caso de no encontrar el fxml
+     */
     public void goLogOut() throws IOException {
         logOut();
     }
 
-
+    /**
+     * Devuelve a la ventana de logIn
+     * @throws IOException excepcion en caso de no encontrar el fxml
+     */
     private void logOut() throws IOException {
         a.changeScene("login.fxml");
     }

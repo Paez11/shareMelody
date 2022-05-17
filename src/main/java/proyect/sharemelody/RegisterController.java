@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import proyect.sharemelody.models.User;
 import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.utils.Connect;
+import proyect.sharemelody.utils.Log;
 import proyect.sharemelody.utils.Valid;
 
 import java.io.IOException;
@@ -50,18 +51,38 @@ public class RegisterController extends Controller {
         super();
     }
 
+    /**
+     *Llama a la funcion que registra el usuario
+     * @param event
+     * @throws IOException excepcion en caso de que haya un error en la carga del fxml
+     * @throws SQLException excepcion en caso de que haya un error con la conexion a la base de datos
+     */
     public void userSignIn(ActionEvent event) throws IOException, SQLException {
         checkSignIn();
     }
 
+    /**
+     * Llama a la funcion para cambiar de escena al logIn
+     * @param event
+     * @throws IOException excepcion en caso de que haya un error en la carga del fxml
+     */
     public void goLogIn(ActionEvent event) throws IOException{
         LogIn();
     }
 
+    /**
+     * cambia de escena al logIn
+     * @throws IOException excepcion en caso de que haya un error en la carga del fxml
+     */
     private void LogIn() throws IOException {
         a.changeScene("login.fxml");
     }
 
+    /**
+     * Registra al usuario segun todos los parametros que haya introducido en la base de datos
+     * @throws IOException excepcion en caso de que haya un error en la carga del fxml
+     * @throws SQLException excepcion en caso de que haya un error con la conexion a la base de datos
+     */
     private void checkSignIn() throws IOException, SQLException {
 
         String n = name.getText();
@@ -103,6 +124,7 @@ public class RegisterController extends Controller {
         if(validE && validP){
             uDao.insert(u);
             principalUser=u;
+            Log.info("Usuario registrado en la base de datos");
             a.changeScene("Home.fxml");
         }
     }

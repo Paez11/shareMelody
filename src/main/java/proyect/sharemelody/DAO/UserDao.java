@@ -4,6 +4,7 @@ import proyect.sharemelody.interfaces.IDao;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 import proyect.sharemelody.utils.Connect;
+import proyect.sharemelody.utils.Log;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +33,10 @@ public class UserDao extends Dao implements IDao<User> {
         super();
     }
 
+    /**
+     * Singleton de la clase UserDao
+     * @return devuelve la instancia de la clase
+     */
     public static UserDao getInstance(){
         if( instance == null){
             instance = new UserDao();
@@ -40,6 +45,11 @@ public class UserDao extends Dao implements IDao<User> {
     }
 
 
+    /**
+     * Inserta un usuario en la base de datos
+     * @param u Usuario a insertar
+     * @return devuelve true si lo ha insertado y false si no se ha podido
+     */
     @Override
     public boolean insert(User u) {
         boolean result=false;
@@ -55,12 +65,17 @@ public class UserDao extends Dao implements IDao<User> {
             result=true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.severe("No se ha podido insertar el usuario a la base de datos");
         }
 
         return result;
     }
 
+    /**
+     * Devuelve un usuario segun su nombre con todos sus parametros
+     * @param s nombre del usuario que se quiere buscar
+     * @return devuelve el usuario que se desea encontrar si existe
+     */
     @Override
     public User get(String s) {
         User u = new User();
@@ -81,12 +96,17 @@ public class UserDao extends Dao implements IDao<User> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.severe("No se ha podido traer el usuario por su nombre de la base de datos");
         }
 
         return u;
     }
 
+    /**
+     * Devuelve un usuario segun su email con todos sus parametros
+     * @param e email del usuario que se quiere buscar
+     * @return devuelve el usuario que se desea encontrar si existe
+     */
     public User getByEmail(String e){
         User u=new User();
 
@@ -105,13 +125,17 @@ public class UserDao extends Dao implements IDao<User> {
             u.setSongs((List<Song>) sDao.getAll());
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Log.severe("No se ha podido traer el usuario por su email de la base de datos");
         }
 
 
         return u;
     }
 
+    /**
+     * Devuelve todos los usuarios que se encuentren en la base de datos
+     * @return lista de usuarios encontrados
+     */
     @Override
     public Collection<User> getAll() {
         List<User> userList= new ArrayList();
@@ -128,12 +152,17 @@ public class UserDao extends Dao implements IDao<User> {
                 userList.add(u);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.severe("No se ha podido cargar todos los usuarios");
         }
 
         return userList;
     }
 
+    /**
+     * Actualiza los datos de un usuario en la base de datos
+     * @param u usuario que se desea actualizar
+     * @return devuelve true si se ha conseguido hacer y false si no
+     */
     @Override
     public boolean update(User u) {
         boolean result=false;
@@ -148,12 +177,18 @@ public class UserDao extends Dao implements IDao<User> {
             st.executeUpdate();
             result=true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            result=false;
+            Log.severe("No se ha podido actualizar el usuario");
         }
 
         return result;
     }
 
+    /**
+     * Elimina un usuario de la base de datos
+     * @param u usuario que se desea eliminar
+     * @return devuelve true si se ha conseguido hacer y false si no
+     */
     @Override
     public boolean delete(User u) {
         boolean result=false;
@@ -166,7 +201,7 @@ public class UserDao extends Dao implements IDao<User> {
             result=true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.severe("No se ha podido eliminar el usuario");
         }
 
         return result;

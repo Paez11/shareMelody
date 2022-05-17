@@ -60,6 +60,11 @@ public class Valid {
         return result;
     }
 
+    /**
+     * Transforma una cadena en sha256
+     * @param s cadena la cual se transformara en sha256
+     * @return devuelve la cadena transformada
+     */
     public static String sha256(String s) {
         String msg = "";
         try {
@@ -68,11 +73,16 @@ public class Valid {
             msg = toHexString(hash);
             System.out.println(toHexString(hash));
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.severe("sha256:No se ha podido transformar a byte la cadena");
         }
         return msg;
     }
 
+    /**
+     * Recoge un array de bytes y los transforma a formato hexadecial
+     * @param array array de bytes a transformar
+     * @return devuelve la cadena tranformada del array de bytes
+     */
     private static String toHexString(byte[] array){
         StringBuilder sb = new StringBuilder(array.length*2);
         for (byte b: array){
@@ -85,7 +95,12 @@ public class Valid {
         return sb.toString();
     }
 
-
+    /**
+     * Tranforma y valida todo input en un float
+     * @param input TextField en el que el usuario introduce los datos
+     * @param f variable decimal
+     * @return devuelve true si ha conseguido transforma a decimal
+     */
     public static boolean isFloat(TextField input, float f){
         boolean result=false;
 
@@ -93,21 +108,9 @@ public class Valid {
             f = Float.parseFloat(input.getText());
             result=true;
         }catch (NumberFormatException e){
-            e.printStackTrace();
+            Log.severe("No se ha podido convertir a decimal");
         }
         return result;
     }
 
-    public static Logger getLogger(){
-        try{
-            Logger l;
-            InputStream configFile = Valid.class.getResourceAsStream("logging.properties");
-            LogManager.getLogManager().readConfiguration(configFile);
-            l = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-            return l;
-        }catch(Exception e){
-            System.out.println("Error al cargar el logger");
-        }
-        return null;
-    }
 }

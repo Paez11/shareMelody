@@ -5,6 +5,7 @@ import proyect.sharemelody.models.Gender;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 import proyect.sharemelody.utils.Connect;
+import proyect.sharemelody.utils.Log;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,6 +34,10 @@ public class SongDao extends Dao implements IDao<Song> {
         super();
     }
 
+    /**
+     * Singleton de la clase SongDao
+     * @return devuelve la instancia de la clase
+     */
     public static SongDao getInstance(){
         if( instance == null){
             instance = new SongDao();
@@ -40,6 +45,11 @@ public class SongDao extends Dao implements IDao<Song> {
         return instance;
     }
 
+    /**
+     * Inserta una cancion en la base de datos
+     * @param s Cancion a insertar
+     * @return devuelve true si lo ha insertado y false si no se ha podido
+     */
     @Override
     public boolean insert(Song s) {
         boolean result=false;
@@ -57,12 +67,17 @@ public class SongDao extends Dao implements IDao<Song> {
             result=true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.severe("No se ha podido insertar una cancion en la base de datos");
         }
 
         return result;
     }
 
+    /**
+     * Devuelve una cancion segun su nombre con todos sus parametros
+     * @param name nombre de la cancion que se quiere buscar
+     * @return devuelve la cancion que se desea encontrar si existe
+     */
     @Override
     public Song get(String name) {
         Song s = null;
@@ -77,6 +92,10 @@ public class SongDao extends Dao implements IDao<Song> {
         return s;
     }
 
+    /**
+     * Devuelve todas las canciones que se encuentren en la base de datos
+     * @return lista de canciones encontradas
+     */
     @Override
     public Collection<Song> getAll() {
         songs = new ArrayList();
@@ -93,13 +112,17 @@ public class SongDao extends Dao implements IDao<Song> {
                 songs.add(s);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.severe("No se ha podido cargar todas las canciones");
         }
 
         return songs;
     }
 
-
+    /**
+     * Actualiza los datos de una cancion en la base de datos
+     * @param s cancion que se desea actualizar
+     * @return devuelve true si se ha conseguido hacer y false si no
+     */
     @Override
     public boolean update(Song s) {
         boolean result=false;
@@ -115,12 +138,17 @@ public class SongDao extends Dao implements IDao<Song> {
             st.executeUpdate();
             result=true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.severe("No se ha podido actualizar la cancion");
         }
 
         return result;
     }
 
+    /**
+     * Elimina una cancion de la base de datos
+     * @param s cancion que se desea eliminar
+     * @return devuelve true si se ha conseguido hacer y false si no
+     */
     @Override
     public boolean delete(Song s) {
         boolean result=false;
@@ -132,7 +160,7 @@ public class SongDao extends Dao implements IDao<Song> {
             songs.remove(s);
             result=true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.severe("No se ha podido eliminar la cancion");
         }
 
         return result;

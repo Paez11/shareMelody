@@ -61,6 +61,10 @@ public class DataConexion implements Serializable {
 		this.password = password;
 	}
 
+	/**
+	 * Carga los datos de la base de datos en un xml
+	 * @param url archivo xml a cargar con los datos
+	 */
 	public void load(String url){
 		DataConexion aux;
 		try {
@@ -72,7 +76,7 @@ public class DataConexion implements Serializable {
 			this.username = aux.username;
 			this.password = aux.password;
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			Log.severe("no se han podido cargar los datos del archivo xml");
 		}
 	}
 

@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.models.User;
 import proyect.sharemelody.utils.Connect;
+import proyect.sharemelody.utils.Log;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -30,27 +31,42 @@ public class LoginController extends Controller {
     @FXML
     private Label wrongLog;
 
-    //private Connection con = Connect.getConnect("conexion.xml");
-    private PreparedStatement statement;
-    private ResultSet rs;
     App a = new App();
 
     public LoginController(){
         super();
     }
 
+    /**
+     * Llama al metodo que logea al usuario
+     * @param event ActionEvent necesario para describir lo que pasara con la ventana
+     * @throws IOException excepcion en caso de no encontrar el fxml
+     */
     public void userLogIn(ActionEvent event) throws IOException{
         checkLogin();
     }
 
+    /**
+     * Llama al metodo que cambia a la ventana de registro
+     * @param event ActionEvent necesario para describir lo que pasara con la ventana
+     * @throws IOException excepcion en caso de no encontrar el fxml
+     */
     public void userSignIn(ActionEvent event) throws IOException {
         goSignIn();
     }
 
+    /**
+     * Cambia de escena a la de registro
+     * @throws IOException excepcion en caso de no encontrar el fxml
+     */
     private void goSignIn() throws IOException {
         a.changeScene("register.fxml");
     }
 
+    /**
+     * Logea al usuario en la aplicacion
+     * @throws IOException excepcion en caso de no encontrar el fxml
+     */
     private void checkLogin() throws IOException{
 
         String n = name.getText();
@@ -64,6 +80,7 @@ public class LoginController extends Controller {
         if((name.getText().equals(n) || name.getText().equals(e))  && password.getText().equals(p)){
             principalUser=aux;
             System.out.println(principalUser);
+            Log.info("Credenciales validas");
             a.changeScene("Home.fxml");
         }
         else if(name.getText().isEmpty() || password.getText().isEmpty()){
@@ -72,34 +89,6 @@ public class LoginController extends Controller {
         else {
             wrongLog.setText("Wrong password or username/email");
         }
-
-        /*
-        String sql = "SELECT name,password FROM usuario WHERE (name = ? or email = ?) and password = ?";
-        try {
-
-            statement = con.prepareStatement(sql);
-            statement.setString(1,n);
-            statement.setString(2,e);
-            statement.setString(3,p);
-            rs = statement.executeQuery();
-
-            if(rs.next() && (name.getText().toString().equals(n) || name.getText().equals(e))  && password.getText().toString().equals(p)){
-                principalUser=aux;
-                a.changeScene("Home.fxml");
-            }
-            else if(name.getText().isEmpty() || password.getText().isEmpty()){
-                wrongLog.setText("Please enter your data");
-            }
-            else {
-                wrongLog.setText("Wrong password or username/email");
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        */
-
-
     }
 
 
