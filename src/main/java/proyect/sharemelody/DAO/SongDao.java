@@ -24,10 +24,10 @@ public class SongDao extends Dao implements IDao<Song> {
 
     private static final String insert="INSERT into canciones (url, name, photo, user, duration, gender)  VALUES (?, ?, ?, ?, ?, ?)";
     private static final String getName="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones WHERE name=?";
-    private static final String getId="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones WHERE id_song=?";
-    private static final String getAll="SELECT id_song,url,name,photo,user,duration,gender FROM canciones";
-    private static final String delete="DELETE FROM canciones WHERE name=?";
-    private static final String update="UPDATE canciones SET url=?, name=?, photo=?, duration=?, gender=? WHERE name=?";
+    private static final String getGender="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones WHERE gender=?";
+    private static final String getAll="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones";
+    private static final String delete="DELETE FROM canciones WHERE id_song=?";
+    private static final String update="UPDATE canciones SET url=?, name=?, photo=?, duration=?, gender=? WHERE id_song=?";
     private static final String updateViews="UPDATE canciones SET views=views+1";
 
     public SongDao(){
@@ -80,15 +80,24 @@ public class SongDao extends Dao implements IDao<Song> {
      */
     @Override
     public Song get(String name) {
-        Song s = null;
-        if(songs !=null && songs.size()>0){
-            for(Song aux : songs){
-                if(aux.getName().equals(name)){
-                    s=aux;
-                }
+        Song s = new Song();
+        try {
+            st = con.prepareStatement(getName);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()){
+                User aux = UserDao.getInstance().get(rs.getString("user"));
+                s.setId(rs.getInt("id_song"));
+                s.setUrl(rs.getString("url"));
+                s.setName(rs.getString("name"));
+                s.setPhoto(rs.getString("photo"));
+                s.setUser(aux);
+                s.setViews(rs.getInt("views"));
+                s.setDuration(rs.getFloat("durantion"));
+                s.setGender(Gender.valueOf(rs.getString("gender")));
             }
+        } catch (SQLException e) {
+            Log.severe("No se ha podido traer la cancion por su nombre de la base de datos");
         }
-
         return s;
     }
 
@@ -104,10 +113,11 @@ public class SongDao extends Dao implements IDao<Song> {
             st = con.prepareStatement(getAll);
             ResultSet rs = st.executeQuery();
             while (rs.next()){
+                User aux = UserDao.getInstance().get(rs.getString("user"));
                 Song s = new Song(rs.getInt("id_song"),rs.getString("url"),rs.getString("name"),
-                        rs.getString("photo"), (User) rs.getObject("user"),rs.getInt("views"),
+                        rs.getString("photo"),aux,rs.getInt("views"),
                         rs.getFloat("duration"),
-                        (Gender) rs.getObject("gender"));
+                        Gender.valueOf(rs.getString("gender")));
 
                 songs.add(s);
             }
@@ -129,7 +139,7 @@ public class SongDao extends Dao implements IDao<Song> {
 
         try{
             st = con.prepareStatement(update);
-            st.setString(6, s.getName());
+            st.setInt(6, s.getId());
             st.setString(1,s.getUrl());
             st.setString(2,s.getName());
             st.setString(3,s.getPhoto());
@@ -155,7 +165,7 @@ public class SongDao extends Dao implements IDao<Song> {
 
         try{
             st = con.prepareStatement(delete);
-            st.setString(1, s.getName());
+            st.setInt(1, s.getId());
             st.executeUpdate();
             songs.remove(s);
             result=true;

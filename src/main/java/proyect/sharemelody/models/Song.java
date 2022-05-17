@@ -86,7 +86,7 @@ public class Song {
     }
 
     public int getViews() {
-        return views;
+        return this.views;
     }
 
     public void setViews(int views) {

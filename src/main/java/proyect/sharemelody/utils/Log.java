@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 public class Log {
     /**
-     * Consigue la instancia del logger
-     * @return devuelve el logar si ha encontrado la clase .properties y null si no existe
+     * Logger de informacion
+     * @return devuelve el logger si ha encontrado la clase .properties y null si no existe
      */
     public static void info(String s){
         try{
@@ -22,6 +22,10 @@ public class Log {
         l.info(s);
     }
 
+    /**
+     * Logger de error severo
+     * @return devuelve el logger si ha encontrado la clase .properties y null si no existe
+     */
     public static void severe(String s) {
         try {
             InputStream configFile = Log.class.getResourceAsStream("/config/logging.properties");

@@ -26,7 +26,7 @@ public class UserDao extends Dao implements IDao<User> {
     private static final String getByName="SELECT id_user,name,email,password,photo FROM usuario WHERE name=?";
     private static final String getAll= "SELECT id,name,email,password FROM usuario";
     private static final String getByEmail="SELECT id_user,name,email,password FROM usuario WHERE email=?";
-    private static final String update="UPDATE usuario SET name=?,email=?,password=?, photo=? WHERE name=?";
+    private static final String update="UPDATE usuario SET name=?, email=?, password=?, photo=? WHERE id_user=?";
     private static final String delete="DELETE FROM usuario WHERE name=?";
 
     public UserDao(){
@@ -169,15 +169,14 @@ public class UserDao extends Dao implements IDao<User> {
 
         try{
             st = con.prepareStatement(update);
+            st.setInt(5, u.getId_u());
             st.setString(1,u.getName());
             st.setString(2,u.getEmail());
             st.setString(3,u.getPassword());
             st.setString(4,u.getPhoto());
-            st.setString(5, u.getName());
             st.executeUpdate();
             result=true;
         } catch (SQLException e) {
-            result=false;
             Log.severe("No se ha podido actualizar el usuario");
         }
 

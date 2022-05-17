@@ -237,7 +237,7 @@
                                     <Insets left="8.0" top="5.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <TextField prefHeight="25.0" prefWidth="191.0" promptText="search" styleClass="search-bar" stylesheets="@css/style.css">
+                              <TextField fx:id="search" prefHeight="25.0" prefWidth="191.0" promptText="search" styleClass="search-bar" stylesheets="@css/style.css">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin>
@@ -374,7 +374,7 @@
                   <String fx:value="songColor" />
                </styleClass>
                <content>
-                  <TableView stylesheets="@css/style.css">
+                  <TableView fx:id="likesTable" stylesheets="@css/style.css">
                      <columns>
                         <TableColumn prefWidth="151.0" text="photo" />
                         <TableColumn prefWidth="205.0" text="name" />
@@ -390,14 +390,14 @@
               <tabs>
                 <Tab text="Most Recent">
                      <content>
-                        <TableView>
+                        <TableView fx:id="mostRecentTable" onSort="#mostRecentSongs">
                           <columns>
-                            <TableColumn prefWidth="151.0" text="photo" />
-                            <TableColumn prefWidth="205.0" text="name" />
-                              <TableColumn prefWidth="109.0" text="user" />
-                              <TableColumn prefWidth="78.0" text="gender" />
-                              <TableColumn prefWidth="46.0" text="duration" />
-                              <TableColumn prefWidth="209.0" text="views" />
+                            <TableColumn fx:id="recentColumnPhoto" prefWidth="151.0" text="photo" />
+                            <TableColumn fx:id="recentColumnName" prefWidth="205.0" text="name" />
+                              <TableColumn fx:id="recentColumnUser" prefWidth="109.0" text="user" />
+                              <TableColumn fx:id="recentColumnGender" prefWidth="78.0" text="gender" />
+                              <TableColumn fx:id="recentColumnDuration" prefWidth="46.0" text="duration" />
+                              <TableColumn fx:id="recentColumnViews" prefWidth="209.0" text="views" />
                               <TableColumn minWidth="0.0" prefWidth="44.0" text="like" />
                           </columns>
                         </TableView>
@@ -405,7 +405,7 @@
                 </Tab>
                 <Tab text="Most view">
                      <content>
-                        <TableView>
+                        <TableView fx:id="mostViewTable">
                            <columns>
                               <TableColumn prefWidth="151.0" text="photo" />
                               <TableColumn prefWidth="205.0" text="name" />
@@ -428,13 +428,13 @@
                   <String fx:value="thumb" />
                </styleClass>
                <content>
-                  <TableView>
+                  <TableView fx:id="yoursTable" stylesheets="@css/style.css">
                      <columns>
-                        <TableColumn prefWidth="105.0" text="photo" />
-                        <TableColumn prefWidth="232.0" text="name" />
-                        <TableColumn prefWidth="81.0" text="gender" />
-                        <TableColumn prefWidth="87.0" text="duration" />
-                        <TableColumn minWidth="0.0" prefWidth="278.0" text="views" />
+                        <TableColumn fx:id="yoursColumnPhoto" prefWidth="105.0" text="photo" />
+                        <TableColumn fx:id="yoursColumnName" prefWidth="232.0" text="name" />
+                        <TableColumn fx:id="yoursColumnGender" prefWidth="81.0" text="gender" />
+                        <TableColumn fx:id="yoursColumnDuration" prefWidth="87.0" text="duration" />
+                        <TableColumn fx:id="yoursColumnViews" minWidth="0.0" prefWidth="278.0" text="views" />
                         <TableColumn minWidth="0.0" prefWidth="52.0">
                            <graphic>
                               <MenuButton ellipsisString="" mnemonicParsing="false" prefHeight="26.0" prefWidth="54.0" text="MenuButton">
