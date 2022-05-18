@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
    <left>
       <VBox prefHeight="600.0" prefWidth="158.0" styleClass="colorTransparent" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -376,12 +376,12 @@
                <content>
                   <TableView fx:id="likesTable" stylesheets="@css/style.css">
                      <columns>
-                        <TableColumn prefWidth="151.0" text="photo" />
-                        <TableColumn prefWidth="205.0" text="name" />
-                        <TableColumn prefWidth="109.0" text="user" />
-                        <TableColumn prefWidth="78.0" text="gender" />
-                        <TableColumn prefWidth="46.0" text="duration" />
-                        <TableColumn prefWidth="209.0" text="views" />
+                        <TableColumn fx:id="likeColumnPhoto" prefWidth="151.0" text="photo" />
+                        <TableColumn fx:id="likeColumnName" prefWidth="205.0" text="name" />
+                        <TableColumn fx:id="likeColumnUser" prefWidth="109.0" text="user" />
+                        <TableColumn fx:id="likeColumnGender" prefWidth="78.0" text="gender" />
+                        <TableColumn fx:id="likeColumnDuration" prefWidth="46.0" text="duration" />
+                        <TableColumn fx:id="likeColumnViews" prefWidth="209.0" text="views" />
                         <TableColumn minWidth="0.0" prefWidth="44.0" text="like" />
                      </columns>
                   </TableView>
@@ -407,12 +407,12 @@
                      <content>
                         <TableView fx:id="mostViewTable">
                            <columns>
-                              <TableColumn prefWidth="151.0" text="photo" />
-                              <TableColumn prefWidth="205.0" text="name" />
-                              <TableColumn prefWidth="109.0" text="user" />
-                              <TableColumn prefWidth="78.0" text="gender" />
-                              <TableColumn prefWidth="46.0" text="duration" />
-                              <TableColumn prefWidth="209.0" text="views" />
+                              <TableColumn fx:id="viewColumnPhoto" prefWidth="151.0" text="photo" />
+                              <TableColumn fx:id="viewColumnName" prefWidth="205.0" text="name" />
+                              <TableColumn fx:id="viewColumnUser" prefWidth="109.0" text="user" />
+                              <TableColumn fx:id="viewColumnGender" prefWidth="78.0" text="gender" />
+                              <TableColumn fx:id="viewColumnDuration" prefWidth="46.0" text="duration" />
+                              <TableColumn fx:id="viewColumnViews" prefWidth="209.0" text="views" />
                               <TableColumn minWidth="0.0" prefWidth="44.0" text="like" />
                            </columns>
                         </TableView>

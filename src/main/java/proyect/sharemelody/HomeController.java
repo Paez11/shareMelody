@@ -43,8 +43,9 @@ public class HomeController extends Controller implements Initializable{
     private static Stage stg;
 
     List<Song> listSongs = (List<Song>) songs.getAll();
+    List<User> listUsers = (List<User>) users.getAll();
     private ObservableList<Song> observableSongs = FXCollections.observableArrayList(listSongs);
-    private ObservableList<User> observableUsers;
+    private ObservableList<User> observableUsers = FXCollections.observableArrayList(listUsers);
     List<String> pstFile;
 
 
@@ -89,12 +90,23 @@ public class HomeController extends Controller implements Initializable{
     private TableColumn<Song, Integer> recentColumnViews;
 
     @FXML
-    private TableView mostViewTable;
-
+    private TableView<Song> mostViewTable;
+    @FXML
+    private TableColumn<Song, String> viewColumnPhoto;
+    @FXML
+    private TableColumn<Song, String> viewColumnName;
+    @FXML
+    private TableColumn<Song, String> viewColumnUser;
+    @FXML
+    private TableColumn<Song, String> viewColumnGender;
+    @FXML
+    private TableColumn<Song, Float> viewColumnDuration;
+    @FXML
+    private TableColumn<Song, Integer> viewColumnViews;
 
 
     @FXML
-    private TableView yoursTable;
+    private TableView<Song> yoursTable;
     @FXML
     private TableColumn<Song, String> yoursColumnPhoto;
     @FXML
@@ -107,8 +119,19 @@ public class HomeController extends Controller implements Initializable{
     private TableColumn<Song, Integer> yoursColumnViews;
 
     @FXML
-    private TableView likesTable;
-
+    private TableView<Song> likesTable;
+    @FXML
+    private TableColumn<Song, String> likeColumnPhoto;
+    @FXML
+    private TableColumn<Song, String> likeColumnName;
+    @FXML
+    private TableColumn<Song, String> likeColumnUser;
+    @FXML
+    private TableColumn<Song, String> likeColumnGender;
+    @FXML
+    private TableColumn<Song, Float> likeColumnDuration;
+    @FXML
+    private TableColumn<Song, Integer> likeColumnViews;
 
 
     //insert
@@ -223,6 +246,7 @@ public class HomeController extends Controller implements Initializable{
         if (event.getSource() == home){
             homePane.toFront();
             mostRecentSongs();
+            mostViewSongs();
         }
         if (event.getSource() == yours){
             yoursPane.toFront();
@@ -230,6 +254,7 @@ public class HomeController extends Controller implements Initializable{
         }
         if (event.getSource() == likes){
             likesPane.toFront();
+            likesSongs();
         }
         if (event.getSource() == profile){
             profilePane.toFront();
@@ -283,9 +308,55 @@ public class HomeController extends Controller implements Initializable{
         });
 
         mostRecentTable.setItems(FXCollections.observableArrayList(observableSongs));
-
+        mostRecentTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
     }
 
+    /**
+     * Metodo que controla el tableview asignado al panel que consistira en mostrar la tabla con las canciones con
+     * mas likes subidas a la base de datos
+     */
+    public void mostViewSongs(){
+
+        viewColumnPhoto.setPrefWidth(80);
+        viewColumnPhoto.setCellValueFactory(new PropertyValueFactory<>("photo"));
+
+        viewColumnName.setCellValueFactory(song ->{
+            SimpleStringProperty ssp = new SimpleStringProperty();
+            ssp.setValue(song.getValue().getName());
+            return ssp;
+        });
+
+        viewColumnUser.setCellValueFactory(song ->{
+            SimpleStringProperty ssp = new SimpleStringProperty();
+            ssp.setValue(song.getValue().getUser().getName());
+            return ssp;
+        });
+
+        viewColumnGender.setCellValueFactory(song ->{
+            SimpleStringProperty ssp = new SimpleStringProperty();
+            ssp.setValue(song.getValue().getGender().toString());
+            return ssp;
+        });
+
+        viewColumnDuration.setCellValueFactory(song ->{
+            ObservableValue<Float> fl = new SimpleFloatProperty().asObject();
+            ((ObjectProperty<Float>) fl).setValue(song.getValue().getDuration());
+            return fl;
+        });
+
+        viewColumnViews.setCellValueFactory(song ->{
+            ObservableValue<Integer> in = new SimpleIntegerProperty().asObject();
+            ((ObjectProperty<Integer>) in).setValue(song.getValue().getViews());
+            return in;
+        });
+
+        mostViewTable.setItems(FXCollections.observableArrayList(observableSongs));
+    }
+
+    /**
+     * Metodo que controla el tableview asignado al panel que consistira en mostrar la tabla con las canciones
+     * subidas por el usuario a la base de datos
+     */
     public void yoursSongs(){
 
         yoursColumnName.setCellValueFactory(song ->{
@@ -313,8 +384,41 @@ public class HomeController extends Controller implements Initializable{
         });
 
         if (observableSongs.contains(principalUser)){
-            mostRecentTable.setItems(FXCollections.observableArrayList(observableSongs));
+            yoursTable.setItems(FXCollections.observableArrayList(observableSongs));
         }
+    }
+
+    /**
+     * Metodo que controla el tableview asignado al panel que consistira en mostrar la tabla con las canciones
+     * que el usuario haya seleccionado como like de la base de datos
+     */
+    public void likesSongs(){
+
+        likeColumnName.setCellValueFactory(song ->{
+            SimpleStringProperty ssp = new SimpleStringProperty();
+            ssp.setValue(song.getValue().getName());
+            return ssp;
+        });
+
+        likeColumnGender.setCellValueFactory(song ->{
+            SimpleStringProperty ssp = new SimpleStringProperty();
+            ssp.setValue(song.getValue().getGender().toString());
+            return ssp;
+        });
+
+        likeColumnDuration.setCellValueFactory(song ->{
+            ObservableValue<Float> fl = new SimpleFloatProperty().asObject();
+            ((ObjectProperty<Float>) fl).setValue(song.getValue().getDuration());
+            return fl;
+        });
+
+        likeColumnViews.setCellValueFactory(song ->{
+            ObservableValue<Integer> in = new SimpleIntegerProperty().asObject();
+            ((ObjectProperty<Integer>) in).setValue(song.getValue().getViews());
+            return in;
+        });
+
+        likesTable.setItems(FXCollections.observableArrayList(observableSongs));
     }
 
     /**
