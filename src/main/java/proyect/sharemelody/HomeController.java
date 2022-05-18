@@ -1,9 +1,6 @@
 package proyect.sharemelody;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,13 +10,17 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import proyect.sharemelody.models.Gender;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 
@@ -88,6 +89,8 @@ public class HomeController extends Controller implements Initializable{
     private TableColumn<Song, Float> recentColumnDuration;
     @FXML
     private TableColumn<Song, Integer> recentColumnViews;
+    @FXML
+    private TableColumn<Song, Boolean> recentColumnLikes;
 
     @FXML
     private TableView<Song> mostViewTable;
@@ -103,6 +106,8 @@ public class HomeController extends Controller implements Initializable{
     private TableColumn<Song, Float> viewColumnDuration;
     @FXML
     private TableColumn<Song, Integer> viewColumnViews;
+    @FXML
+    private TableColumn<Song, Boolean> viewColumnLikes;
 
 
     @FXML
@@ -117,6 +122,11 @@ public class HomeController extends Controller implements Initializable{
     private TableColumn<Song, Float> yoursColumnDuration;
     @FXML
     private TableColumn<Song, Integer> yoursColumnViews;
+    @FXML
+    private TableColumn<Song, Button> yoursColumnDelete;
+
+    @FXML
+    private ChoiceBox genderBox;
 
     @FXML
     private TableView<Song> likesTable;
@@ -132,6 +142,8 @@ public class HomeController extends Controller implements Initializable{
     private TableColumn<Song, Float> likeColumnDuration;
     @FXML
     private TableColumn<Song, Integer> likeColumnViews;
+    @FXML
+    private TableColumn<Song, Boolean> likeColumnLikes;
 
 
     //insert
@@ -197,8 +209,6 @@ public class HomeController extends Controller implements Initializable{
         principalUser=this.users.get(principalUser.getName());
         homePane.toFront();
         mostRecentSongs();
-        System.out.println(principalUser);
-        System.out.println(observableSongs);
 
         //Esta parte corresponde al reproductor de archivos .mp3
         //No reconoce los archivos dentro del directorio por lo cual al ser null lanza una excepcion
@@ -307,8 +317,10 @@ public class HomeController extends Controller implements Initializable{
             return in;
         });
 
+        recentColumnLikes.setCellFactory(column -> new CheckBoxTableCell<>());
+
         mostRecentTable.setItems(FXCollections.observableArrayList(observableSongs));
-        mostRecentTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
+        mostRecentTable.setEditable(true);
     }
 
     /**
@@ -350,6 +362,8 @@ public class HomeController extends Controller implements Initializable{
             return in;
         });
 
+        viewColumnLikes.setCellFactory(column -> new CheckBoxTableCell<>());
+
         mostViewTable.setItems(FXCollections.observableArrayList(observableSongs));
     }
 
@@ -386,6 +400,10 @@ public class HomeController extends Controller implements Initializable{
         if (observableSongs.contains(principalUser)){
             yoursTable.setItems(FXCollections.observableArrayList(observableSongs));
         }
+        yoursTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
+        yoursTable.setEditable(true);
+        yoursColumnName.setCellFactory(TextFieldTableCell.forTableColumn());
+        yoursColumnGender.setCellFactory(ChoiceBoxTableCell.forTableColumn(Gender.values().toString()));
     }
 
     /**
@@ -417,6 +435,8 @@ public class HomeController extends Controller implements Initializable{
             ((ObjectProperty<Integer>) in).setValue(song.getValue().getViews());
             return in;
         });
+
+        likeColumnLikes.setCellFactory(column -> new CheckBoxTableCell<>());
 
         likesTable.setItems(FXCollections.observableArrayList(observableSongs));
     }
@@ -454,8 +474,7 @@ public class HomeController extends Controller implements Initializable{
             }
             alert.showAndWait();
         }
-        System.out.println(users.update(principalUser));
-        System.out.println(principalUser);
+        users.update(principalUser);
     }
 
     /**

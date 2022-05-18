@@ -6,16 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import proyect.sharemelody.DAO.UserDao;
 import proyect.sharemelody.models.User;
-import proyect.sharemelody.utils.Connect;
 import proyect.sharemelody.utils.Log;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 
 public class LoginController extends Controller {
@@ -79,7 +73,6 @@ public class LoginController extends Controller {
         users.get(n);
         if((name.getText().equals(n) || name.getText().equals(e))  && password.getText().equals(p)){
             principalUser=aux;
-            System.out.println(principalUser);
             Log.info("Credenciales validas");
             a.changeScene("Home.fxml");
         }

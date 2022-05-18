@@ -129,24 +129,4 @@ public class RegisterController extends Controller {
         }
     }
 
-    /*
-    private  boolean checkName(String n) throws SQLException {
-        boolean result=true;
-        String n1 = "";
-        String sql = "SELECT name from usuario WHERE name = ?";
-        try{
-            statement = con.prepareStatement(sql);
-            statement.setString(1, n1);
-            rs = statement.executeQuery();
-            if(n.equals(n1)){
-                result=false;
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-     */
-
 }

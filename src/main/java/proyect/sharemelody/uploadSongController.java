@@ -62,7 +62,7 @@ public class uploadSongController extends Controller implements Initializable {
         genderBox.setValue(Gender.Pop);
         genderBox.getItems().setAll(genders);
 
-        //urlText.setDisable(true);
+        urlText.setDisable(true);
         photoText.setDisable(true);
 
     }

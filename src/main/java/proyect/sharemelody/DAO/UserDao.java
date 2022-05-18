@@ -6,10 +6,7 @@ import proyect.sharemelody.models.User;
 import proyect.sharemelody.utils.Connect;
 import proyect.sharemelody.utils.Log;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +25,8 @@ public class UserDao extends Dao implements IDao<User> {
     private static final String getByEmail="SELECT id_user,name,email,password FROM usuario WHERE email=?";
     private static final String update="UPDATE usuario SET name=?, email=?, password=?, photo=? WHERE id_user=?";
     private static final String delete="DELETE FROM usuario WHERE name=?";
-
+    private static final String update2="INSERT into usuario (name, email, password, photo)  VALUES (?, ?, ?, ?) " +
+            "ON DUPLICATE KEY UPDATE name=?, email=?, password=?, photo=?";
     public UserDao(){
         super();
     }
@@ -53,8 +51,6 @@ public class UserDao extends Dao implements IDao<User> {
     @Override
     public boolean insert(User u) {
         boolean result=false;
-
-
         try{
             st = con.prepareStatement(insert);
             st.setString(1,u.getName());
@@ -166,7 +162,8 @@ public class UserDao extends Dao implements IDao<User> {
     @Override
     public boolean update(User u) {
         boolean result=false;
-
+        //String update2="UPDATE usuario SET name=\""+u.getName()+"\""+",email=\""+u.getEmail()+"\""+",password=\"" +u.getPassword()+"\""+", photo=\""+u.getPhoto()+"\""+" WHERE id_user="+u.getId_u()+"";
+        //String update3="UPDATE usuario SET name=\""+u.getName()+"\""+" WHERE id_user="+1+"";
         try{
             st = con.prepareStatement(update);
             st.setInt(5, u.getId_u());
