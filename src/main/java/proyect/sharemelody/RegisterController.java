@@ -41,11 +41,8 @@ public class RegisterController extends Controller {
     @FXML
     private Label wrongReg4;
 
-    //private Connection con = Connect.getConnect("conexion.xml");
-    //private PreparedStatement statement;
-    private ResultSet rs;
+
     App a = new App();
-    UserDao uDao = new UserDao();
 
     public RegisterController(){
         super();
@@ -90,7 +87,6 @@ public class RegisterController extends Controller {
         String p = password2.getText();
 
         p=Valid.sha256(p);
-        System.out.println(p);
 
         User u = new User(n,e,p,"");
 
@@ -122,7 +118,7 @@ public class RegisterController extends Controller {
 
 
         if(validE && validP){
-            uDao.insert(u);
+            users.insert(u);
             principalUser=u;
             Log.info("Usuario registrado en la base de datos");
             a.changeScene("Home.fxml");

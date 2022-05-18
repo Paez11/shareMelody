@@ -71,7 +71,6 @@ public class Valid {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hash = md.digest(s.getBytes(StandardCharsets.UTF_8));
             msg = toHexString(hash);
-            System.out.println(toHexString(hash));
         } catch (Exception e) {
             Log.severe("sha256:No se ha podido transformar a byte la cadena");
         }

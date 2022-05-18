@@ -8,6 +8,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import proyect.sharemelody.models.User;
 import proyect.sharemelody.utils.Log;
+import proyect.sharemelody.utils.Valid;
+
 import java.io.IOException;
 
 
@@ -67,22 +69,20 @@ public class LoginController extends Controller {
         String p = password.getText();
         String e = name.getText();
 
-        //p= Valid.sha256(p);
-
-        User aux = new User(n,e,p);
-        users.get(n);
-        if((name.getText().equals(n) || name.getText().equals(e))  && password.getText().equals(p)){
+        p= Valid.sha256(p);
+        User aux = users.get(n);
+        if(aux==null){
+            wrongLog.setText("Incorrect data");
+        }
+        if((name.getText().equals(aux.getName()) || name.getText().equals(aux.getEmail()))  && Valid.sha256(password.getText()).equals(aux.getPassword())){
             principalUser=aux;
             Log.info("Credenciales validas");
             a.changeScene("Home.fxml");
-        }
-        else if(name.getText().isEmpty() || password.getText().isEmpty()){
+        } else if(name.getText().isEmpty() || password.getText().isEmpty()){
             wrongLog.setText("Please enter your data");
-        }
-        else {
+        } else {
             wrongLog.setText("Wrong password or username/email");
         }
     }
-
 
 }

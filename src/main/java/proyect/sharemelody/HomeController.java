@@ -154,6 +154,8 @@ public class HomeController extends Controller implements Initializable{
     @FXML
     private Button edit;
     @FXML
+    private Button delete;
+    @FXML
     private TextField name, email, photoText;
     @FXML
     private PasswordField p1, p2;
@@ -477,6 +479,22 @@ public class HomeController extends Controller implements Initializable{
         users.update(principalUser);
     }
 
+    /**
+     * Elimina el usuario principal y actualiza los datos en la base de datos
+     * @throws IOException excepcion en caso de que el usuario sea null
+     */
+    public void  deleteUser() throws IOException {
+        Alert alert;
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete User");
+        alert.setHeaderText("");
+        alert.setContentText("Are you sure you want to delete your profile?");
+        alert.showAndWait();
+        if (alert.showAndWait().equals(ButtonType.OK)){
+            users.delete(principalUser);
+            goLogOut();
+        }
+    }
     /**
      * Copia el archivo que se haya seleccionado en el explorador con formato de imagen y lo copia a la carpeta de
      * imagenes dentro de recursos para tener la imagen en el directorio (del perfil del usuario)
