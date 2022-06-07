@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="precolor" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyect.sharemelody.HomeController">
    <left>
       <VBox prefHeight="600.0" prefWidth="158.0" styleClass="colorTransparent" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -141,7 +141,7 @@
                         </Button>
                         <Button fx:id="playButton" ellipsisString="" mnemonicParsing="false" onAction="#playMedia" styleClass="buttonR" stylesheets="@css/style.css">
                            <graphic>
-                              <ImageView fitHeight="42.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="imagenPlay" fitHeight="42.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../images/ic_play.png" />
                                  </image>

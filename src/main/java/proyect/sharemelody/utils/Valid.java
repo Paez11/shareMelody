@@ -3,14 +3,9 @@ package proyect.sharemelody.utils;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.controlsfx.tools.Utils;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 public class Valid {
 

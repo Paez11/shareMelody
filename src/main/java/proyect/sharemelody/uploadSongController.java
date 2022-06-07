@@ -134,11 +134,16 @@ public class uploadSongController extends Controller implements Initializable {
      * Cierra una ventana
      * @param event ActionEvent necesario para describir lo que pasara con la ventana
      */
-    public void cancel(ActionEvent event) throws Exception {
-        Node n = (Node) event.getSource();
-        Stage stage = (Stage) n.getScene().getWindow();
-        stage.close();
-        Log.info("Ventana cerrada");
+    public void cancel(ActionEvent event){
+        try{
+            Node n = (Node) event.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
+            Log.info("Ventana cerrada");
+        }catch (Exception e){
+            Log.severe("No se ha podido cerrar la ventana");
+        }
+
     }
 
 

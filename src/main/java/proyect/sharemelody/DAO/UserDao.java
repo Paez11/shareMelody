@@ -3,7 +3,6 @@ package proyect.sharemelody.DAO;
 import proyect.sharemelody.interfaces.IDao;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
-import proyect.sharemelody.utils.Connect;
 import proyect.sharemelody.utils.Log;
 
 import java.sql.*;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class UserDao extends Dao implements IDao<User> {
 
-    public static List<User> users = new ArrayList();
+    protected static List<User> users = new ArrayList();
 
     private static UserDao instance;
 
@@ -88,7 +87,7 @@ public class UserDao extends Dao implements IDao<User> {
                 u.setPhoto(rs.getString("photo"));
 
                 SongDao sDao = new SongDao();
-                //u.setSongs((List<Song>) sDao.getAll());
+                u.setSongs((List<Song>) sDao.getAllUserSongs());
             }
 
         } catch (SQLException e) {
@@ -162,8 +161,7 @@ public class UserDao extends Dao implements IDao<User> {
     @Override
     public boolean update(User u) {
         boolean result=false;
-        //String update2="UPDATE usuario SET name=\""+u.getName()+"\""+",email=\""+u.getEmail()+"\""+",password=\"" +u.getPassword()+"\""+", photo=\""+u.getPhoto()+"\""+" WHERE id_user="+u.getId_u()+"";
-        //String update3="UPDATE usuario SET name=\""+u.getName()+"\""+" WHERE id_user="+1+"";
+        
         try{
             st = con.prepareStatement(update);
             st.setInt(5, u.getId_u());

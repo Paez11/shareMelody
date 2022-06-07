@@ -1,12 +1,15 @@
 package proyect.sharemelody.models;
 
+import java.util.List;
+
 public class Song {
 
     private int id;
     private String url;
     private String name;
     private String photo;
-    private User user;
+    private User propietario;
+    private List<User> users;
     private int views;
     private float duration;
     private Gender gender;
@@ -16,7 +19,7 @@ public class Song {
         this.url = url;
         this.name = name;
         this.photo = photo;
-        this.user = user;
+        this.propietario = user;
         this.views = views;
         this.duration = duration;
         this.gender = gender;
@@ -26,7 +29,7 @@ public class Song {
         this.url = url;
         this.name = name;
         this.photo = photo;
-        this.user = user;
+        this.propietario = user;
         this.duration = duration;
         this.gender = gender;
     }
@@ -35,7 +38,7 @@ public class Song {
         this.url = url;
         this.name = name;
         this.photo = photo;
-        this.user = user;
+        this.propietario = user;
         this.views = views;
         this.duration = duration;
         this.gender = gender;
@@ -77,12 +80,12 @@ public class Song {
         this.photo = photo;
     }
 
-    public User getUser() {
-        return user;
+    public User getPropietario() {
+        return propietario;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setPropietario(User propietario) {
+        this.propietario = propietario;
     }
 
     public int getViews() {
@@ -116,7 +119,7 @@ public class Song {
                 ", name='" + name + '\'' +
                 ", duration=" + duration +
                 ", gender=" + gender +
-                ", user=" + user +
+                ", user=" + propietario +
                 '}';
     }
 

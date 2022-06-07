@@ -3,18 +3,12 @@ package proyect.sharemelody.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 public class Connect {
 	
 	private static Connection con;
-	private String file = "conexion.xml";
 	private static Connect _newInstance;
 	private static DataConexion dc;
-
-	private Connect(){
-
-	}
 
 	private Connect(String url) {
 		dc = new DataConexion("conexion.xml");
@@ -52,7 +46,7 @@ public class Connect {
 				_newInstance=null;
 				Log.info("Base de datos desconectada");
 			} catch (SQLException e) {
-
+				Log.severe("No se ha podido desconectar de la base de datos");
 			}
 		}
 	}

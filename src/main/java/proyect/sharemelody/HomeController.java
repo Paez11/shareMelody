@@ -1,6 +1,7 @@
 package proyect.sharemelody;
 
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +26,7 @@ import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 
@@ -146,6 +148,9 @@ public class HomeController extends Controller implements Initializable{
     private TableColumn<Song, Boolean> likeColumnLikes;
 
 
+    @FXML
+    private ImageView imagenPlay;
+
     //insert
     @FXML
     private Button add;
@@ -187,7 +192,6 @@ public class HomeController extends Controller implements Initializable{
     private TimerTask task;
     private boolean running;
 
-
     //Options
     @FXML
     private MenuButton more;
@@ -208,6 +212,7 @@ public class HomeController extends Controller implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
+
         principalUser=this.users.get(principalUser.getName());
         homePane.toFront();
         mostRecentSongs();
@@ -216,7 +221,21 @@ public class HomeController extends Controller implements Initializable{
         //No reconoce los archivos dentro del directorio por lo cual al ser null lanza una excepcion
 
         mediaSongs = new ArrayList<File>();
-        directory = new File("music/");
+        URL resource = this.getClass().getClassLoader().getResource("music");
+        if (resource == null) {
+            Log.info("No se han encontrado archivos mp3 en el directorio");
+        } else {
+
+            // failed if files have whitespaces or special characters
+            //return new File(resource.getFile());
+
+            try {
+                directory =  new File(resource.toURI());
+            } catch (URISyntaxException e) {
+                Log.severe("");
+            }
+        }
+
         files = directory.listFiles();
 
 
@@ -224,14 +243,13 @@ public class HomeController extends Controller implements Initializable{
             for (File f : files){
                 if (f.exists() && f.isFile()) {
                     mediaSongs.add(f);
-                    System.out.println(f);
                 }
             }
         }else {
             Log.info("No se han encontrado archivos .mp3 en el directorio");
         }
 
-        /*
+
         media = new Media(mediaSongs.get(songNumber).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
 
@@ -243,12 +261,12 @@ public class HomeController extends Controller implements Initializable{
                 mediaPlayer.setVolume(volumen.getValue()*0.01);
             }
         });
-        */
+
     }
 
 
     /**
-     * Cambia de panel dentro del stack panel del Home.fxml segun el boton que se pulse para traerlo al frente
+     * Cambia de panel dentro del stack panel de Home.fxml segun el boton que se pulse para traerlo al frente
      * el cual sera el visible por el usuario
      * @param event ActionEvent necesario para describir lo que pasara con la ventana
      */
@@ -297,7 +315,7 @@ public class HomeController extends Controller implements Initializable{
 
         recentColumnUser.setCellValueFactory(song ->{
             SimpleStringProperty ssp = new SimpleStringProperty();
-            ssp.setValue(song.getValue().getUser().getName());
+            ssp.setValue(song.getValue().getPropietario().getName());
             return ssp;
         });
 
@@ -342,7 +360,7 @@ public class HomeController extends Controller implements Initializable{
 
         viewColumnUser.setCellValueFactory(song ->{
             SimpleStringProperty ssp = new SimpleStringProperty();
-            ssp.setValue(song.getValue().getUser().getName());
+            ssp.setValue(song.getValue().getPropietario().getName());
             return ssp;
         });
 
@@ -453,13 +471,6 @@ public class HomeController extends Controller implements Initializable{
         boolean validP = Valid.passwordMatched(p1,p2,wrongPassword,"the password doesnt match");
 
 
-        if (p1.getText().isEmpty()){
-            p1.setText(principalUser.getPassword());
-        }
-        if (p2.getText().isEmpty()){
-            p2.setText(principalUser.getPassword());
-        }
-
         if(validE){
             boolean res=users.update(principalUser);
             Alert alert;
@@ -475,8 +486,25 @@ public class HomeController extends Controller implements Initializable{
                 alert.setContentText("data successful edited");
             }
             alert.showAndWait();
+            users.update(principalUser);
         }
-        users.update(principalUser);
+        if(validP){
+            boolean res=users.update(principalUser);
+            Alert alert;
+            if (!res){
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("User edited");
+                alert.setHeaderText("");
+                alert.setContentText("Unable to update data");
+            }else {
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("User edited");
+                alert.setHeaderText("");
+                alert.setContentText("data successful edited");
+            }
+            alert.showAndWait();
+            users.update(principalUser);
+        }
     }
 
     /**
@@ -545,9 +573,34 @@ public class HomeController extends Controller implements Initializable{
      * Comienza a reproducir el archivo .mp3 seleccionado dentro de la carpeta
      */
     public void playMedia(){
-        beginTimer();
-        mediaPlayer.play();
-        Log.info("Archivo .mp3 comenzado");
+
+        File playPath = new File("src\\main\\resources\\images\\ic_play.png");
+        File pausePath = new File("src\\main\\resources\\images\\ic_pause.png");
+        Image play = new Image(playPath.toURI().toString());
+        Image pause = new Image(pausePath.toURI().toString());
+
+        if(!running) {
+            this.imagenPlay.setImage(pause);
+
+            beginTimer();
+            System.out.println(mediaPlayer.cycleDurationProperty());
+            mediaPlayer.play();
+            //ObservableValue<String> obs = new ReadOnlyObjectWrapper<String>(String.valueOf(mediaPlayer.get));
+            //songProgressN.textProperty().bind(obs);
+            mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
+               // durationSlider.setValue(newTime.toMillis() / mp.getTotalDuration().toMillis() * 100);
+                String formattedTime = String.valueOf(newTime.toSeconds()); // your computations
+                songProgressN.setText(formattedTime);
+            });
+
+            Log.info("Archivo .mp3 comenzado");
+            running=true;
+        }else{
+            this.pauseMedia();
+            running=false;
+
+            this.imagenPlay.setImage(play);
+        }
     }
 
     /**

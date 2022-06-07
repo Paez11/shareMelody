@@ -4,10 +4,8 @@ import proyect.sharemelody.interfaces.IDao;
 import proyect.sharemelody.models.Gender;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
-import proyect.sharemelody.utils.Connect;
 import proyect.sharemelody.utils.Log;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,6 +24,7 @@ public class SongDao extends Dao implements IDao<Song> {
     private static final String getName="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones WHERE name=?";
     private static final String getGender="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones WHERE gender=?";
     private static final String getAll="SELECT id_song,url,name,photo,user,views,duration,gender FROM canciones";
+    private static final String getAllUserSongs="SELECT url,name,photo,user,views,duration,gender FROM canciones";
     private static final String delete="DELETE FROM canciones WHERE id_song=?";
     private static final String update="UPDATE canciones SET url=?, name=?, photo=?, duration=?, gender=? WHERE id_song=?";
     private static final String updateViews="UPDATE canciones SET views=views+1";
@@ -53,13 +52,12 @@ public class SongDao extends Dao implements IDao<Song> {
     @Override
     public boolean insert(Song s) {
         boolean result=false;
-        System.out.println(s);
         try{
             st = con.prepareStatement(insert);
             st.setString(1,s.getUrl());
             st.setString(2, s.getName());
             st.setString(3,s.getPhoto());
-            st.setString(4,s.getUser().getName());
+            st.setString(4,s.getPropietario().getName());
             st.setFloat(5,s.getDuration());
             st.setObject(6,s.getGender().toString());
             st.executeUpdate();
@@ -90,7 +88,7 @@ public class SongDao extends Dao implements IDao<Song> {
                 s.setUrl(rs.getString("url"));
                 s.setName(rs.getString("name"));
                 s.setPhoto(rs.getString("photo"));
-                s.setUser(aux);
+                s.setPropietario(aux);
                 s.setViews(rs.getInt("views"));
                 s.setDuration(rs.getFloat("durantion"));
                 s.setGender(Gender.valueOf(rs.getString("gender")));
@@ -114,6 +112,27 @@ public class SongDao extends Dao implements IDao<Song> {
             ResultSet rs = st.executeQuery();
             while (rs.next()){
                 User aux = UserDao.getInstance().get(rs.getString("user"));
+                Song s = new Song(rs.getInt("id_song"),rs.getString("url"),rs.getString("name"),
+                        rs.getString("photo"),aux,rs.getInt("views"),
+                        rs.getFloat("duration"),
+                        Gender.valueOf(rs.getString("gender")));
+
+                songs.add(s);
+            }
+        } catch (SQLException e) {
+            Log.severe("No se ha podido cargar todas las canciones");
+        }
+
+        return songs;
+    }
+
+    public Collection<Song> getAllUserSongs() {
+        songs = new ArrayList();
+        try{
+            st = con.prepareStatement(getAllUserSongs);
+            ResultSet rs = st.executeQuery();
+            User aux = UserDao.getInstance().get(rs.getString("user"));
+            while (rs.next()){
                 Song s = new Song(rs.getInt("id_song"),rs.getString("url"),rs.getString("name"),
                         rs.getString("photo"),aux,rs.getInt("views"),
                         rs.getFloat("duration"),

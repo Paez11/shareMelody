@@ -14,6 +14,6 @@ public class SongController {
 
     public void setData(Song song){
         songName.setText(song.getName());
-        user.setText(song.getUser().getName());
+        user.setText(song.getPropietario().getName());
     }
 }

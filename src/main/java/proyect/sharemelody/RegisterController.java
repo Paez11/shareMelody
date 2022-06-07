@@ -7,15 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import proyect.sharemelody.models.User;
-import proyect.sharemelody.DAO.UserDao;
-import proyect.sharemelody.utils.Connect;
 import proyect.sharemelody.utils.Log;
 import proyect.sharemelody.utils.Valid;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RegisterController extends Controller {
@@ -50,20 +45,18 @@ public class RegisterController extends Controller {
 
     /**
      *Llama a la funcion que registra el usuario
-     * @param event
      * @throws IOException excepcion en caso de que haya un error en la carga del fxml
      * @throws SQLException excepcion en caso de que haya un error con la conexion a la base de datos
      */
-    public void userSignIn(ActionEvent event) throws IOException, SQLException {
+    public void userSignIn() throws IOException, SQLException {
         checkSignIn();
     }
 
     /**
      * Llama a la funcion para cambiar de escena al logIn
-     * @param event
      * @throws IOException excepcion en caso de que haya un error en la carga del fxml
      */
-    public void goLogIn(ActionEvent event) throws IOException{
+    public void goLogIn() throws IOException{
         LogIn();
     }
 
