@@ -161,7 +161,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="0.0" prefWidth="843.0">
                      <children>
-                        <Slider fx:id="songProgress" blockIncrement="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="440.0" styleClass="slider1" stylesheets="@css/style.css" />
+                        <Slider fx:id="songProgress" blockIncrement="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#beginTimer" prefHeight="22.0" prefWidth="440.0" styleClass="slider1" stylesheets="@css/style.css" />
                         <Label fx:id="songProgressN" text="00:00" textFill="WHITE">
                            <font>
                               <Font size="15.0" />

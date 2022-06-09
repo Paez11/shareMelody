@@ -1,5 +1,6 @@
 package proyect.sharemelody;
 
+import javafx.animation.Animation;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import proyect.sharemelody.models.Gender;
 import proyect.sharemelody.models.Song;
 import proyect.sharemelody.models.User;
@@ -29,6 +31,7 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -218,7 +221,6 @@ public class HomeController extends Controller implements Initializable{
         mostRecentSongs();
 
         //Esta parte corresponde al reproductor de archivos .mp3
-        //No reconoce los archivos dentro del directorio por lo cual al ser null lanza una excepcion
 
         mediaSongs = new ArrayList<File>();
         URL resource = this.getClass().getClassLoader().getResource("music");
@@ -261,7 +263,7 @@ public class HomeController extends Controller implements Initializable{
                 mediaPlayer.setVolume(volumen.getValue()*0.01);
             }
         });
-
+        songProgressN.setText("00:00");
     }
 
 
@@ -579,17 +581,40 @@ public class HomeController extends Controller implements Initializable{
         Image play = new Image(playPath.toURI().toString());
         Image pause = new Image(pausePath.toURI().toString());
 
+
+        /*
+        URL playPath = this.getClass().getClassLoader().getResource("images\\ic_play.png");
+        URL pausePath =this.getClass().getClassLoader().getResource("images\\ic_pause.png");
+        Image play = null;
+        Image pause = null;
+        try {
+            play = new Image(playPath.toURI().toString());
+            pause = new Image(pausePath.toURI().toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        */
+
         if(!running) {
             this.imagenPlay.setImage(pause);
 
             beginTimer();
-            System.out.println(mediaPlayer.cycleDurationProperty());
             mediaPlayer.play();
             //ObservableValue<String> obs = new ReadOnlyObjectWrapper<String>(String.valueOf(mediaPlayer.get));
             //songProgressN.textProperty().bind(obs);
             mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
-               // durationSlider.setValue(newTime.toMillis() / mp.getTotalDuration().toMillis() * 100);
-                String formattedTime = String.valueOf(newTime.toSeconds()); // your computations
+                songProgress.setMax(mediaPlayer.getTotalDuration().toSeconds());
+                songProgress.setValue(newTime.toMillis() / mediaPlayer.getTotalDuration().toMillis() * 100);
+                songProgress.valueProperty().addListener((p, o, value) -> {
+                    if (songProgress.isPressed()) {
+                        mediaPlayer.seek(Duration.seconds(value.doubleValue()));
+                    }
+                });
+                //String formattedTime = String.valueOf(newTime.toMinutes()); // your computations
+                String formattedTime = String.format("%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes((long) newTime.toMillis()),
+                        TimeUnit.MILLISECONDS.toSeconds((long) newTime.toMillis()) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) newTime.toMillis())));
                 songProgressN.setText(formattedTime);
             });
 
