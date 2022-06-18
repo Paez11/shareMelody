@@ -1,6 +1,8 @@
 package proyect.sharemelody;
 
 import javafx.animation.Animation;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -195,6 +198,9 @@ public class HomeController extends Controller implements Initializable{
     private TimerTask task;
     private boolean running;
 
+    @FXML
+    private  Label rSong, rArtist;
+
     //Options
     @FXML
     private MenuButton more;
@@ -264,6 +270,7 @@ public class HomeController extends Controller implements Initializable{
             }
         });
         songProgressN.setText("00:00");
+        rSong.setText(mediaSongs.get(songNumber).getName());
     }
 
 
@@ -342,7 +349,7 @@ public class HomeController extends Controller implements Initializable{
         recentColumnLikes.setCellFactory(column -> new CheckBoxTableCell<>());
 
         mostRecentTable.setItems(FXCollections.observableArrayList(observableSongs));
-        mostRecentTable.setEditable(true);
+        //mostRecentTable.setEditable(true);
     }
 
     /**
@@ -386,7 +393,7 @@ public class HomeController extends Controller implements Initializable{
 
         viewColumnLikes.setCellFactory(column -> new CheckBoxTableCell<>());
 
-        mostViewTable.setItems(FXCollections.observableArrayList(observableSongs));
+        //mostViewTable.setItems(FXCollections.observableArrayList(observableSongs));
     }
 
     /**
@@ -596,33 +603,36 @@ public class HomeController extends Controller implements Initializable{
         */
 
         if(!running) {
+            mediaPlayer.setVolume(volumen.getValue()*0.01);
             this.imagenPlay.setImage(pause);
 
-            beginTimer();
-            mediaPlayer.play();
+            mediaPlayer.currentTimeProperty().addListener((ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) -> {
+                songProgress.setValue(newValue.toSeconds());
+            });
+            songProgress.setOnMouseClicked((MouseEvent mouseEvent) -> {
+                mediaPlayer.seek(Duration.seconds(songProgress.getValue()));
+            });
+            songProgress.maxProperty().bind(Bindings.createDoubleBinding(
+                    () -> mediaPlayer.getTotalDuration().toSeconds(),
+                    mediaPlayer.totalDurationProperty()));
+
+
             //ObservableValue<String> obs = new ReadOnlyObjectWrapper<String>(String.valueOf(mediaPlayer.get));
             //songProgressN.textProperty().bind(obs);
             mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
-                songProgress.setMax(mediaPlayer.getTotalDuration().toSeconds());
-                songProgress.setValue(newTime.toMillis() / mediaPlayer.getTotalDuration().toMillis() * 100);
-                songProgress.valueProperty().addListener((p, o, value) -> {
-                    if (songProgress.isPressed()) {
-                        mediaPlayer.seek(Duration.seconds(value.doubleValue()));
-                    }
-                });
-                //String formattedTime = String.valueOf(newTime.toMinutes()); // your computations
                 String formattedTime = String.format("%02d:%02d",
                         TimeUnit.MILLISECONDS.toMinutes((long) newTime.toMillis()),
                         TimeUnit.MILLISECONDS.toSeconds((long) newTime.toMillis()) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) newTime.toMillis())));
                 songProgressN.setText(formattedTime);
             });
+            beginTimer();
+            mediaPlayer.play();
 
             Log.info("Archivo .mp3 comenzado");
-            running=true;
+
         }else{
             this.pauseMedia();
-            running=false;
 
             this.imagenPlay.setImage(play);
         }
@@ -652,7 +662,7 @@ public class HomeController extends Controller implements Initializable{
 
             media = new Media(mediaSongs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
-            songProgressN.setText(mediaSongs.get(songNumber).getName());
+            rSong.setText(mediaSongs.get(songNumber).getName());
 
             playMedia();
         }
@@ -667,7 +677,7 @@ public class HomeController extends Controller implements Initializable{
 
             media = new Media(mediaSongs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
-            songProgressN.setText(mediaSongs.get(songNumber).getName());
+            rSong.setText(mediaSongs.get(songNumber).getName());
             Log.info("Archivo .mp3 anterior cargado");
         }
     }
@@ -687,7 +697,7 @@ public class HomeController extends Controller implements Initializable{
 
             media = new Media(mediaSongs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
-            songProgressN.setText(mediaSongs.get(songNumber).getName());
+            rSong.setText(mediaSongs.get(songNumber).getName());
 
             playMedia();
         }
@@ -702,7 +712,7 @@ public class HomeController extends Controller implements Initializable{
 
             media = new Media(mediaSongs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
-            songProgressN.setText(mediaSongs.get(songNumber).getName());
+            rSong.setText(mediaSongs.get(songNumber).getName());
             Log.info("Archivo .mp3 siguiente cargado");
         }
     }
@@ -722,6 +732,9 @@ public class HomeController extends Controller implements Initializable{
 
                 if(current/end ==1){
                     cancelTimer();
+                    Platform.runLater(()->{
+                        nextMedia();
+                    });
                 }
             }
         };
